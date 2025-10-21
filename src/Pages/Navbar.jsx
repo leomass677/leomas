@@ -44,7 +44,7 @@ const Navbar = () => {
         </div>
       </div>
       {/* mobile */}
-      <div className="w-full px-[8px] bg-primary-700">
+      <div className="w-full px-[8px] bg-primary-700 md:hidden">
         <header className="flex justify-between items-center w-full">
           <img src={icons.logo} alt="logo" />
           <AiOutlineMenuUnfold

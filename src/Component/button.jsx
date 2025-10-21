@@ -1,6 +1,5 @@
 import React from "react";
 import classNames from "classnames";
-import { div, img } from "framer-motion/client";
 
 const Button = ({
   type = "Primary",
@@ -43,9 +42,9 @@ const Button = ({
       disabled={disabled || isLoading}
     >
       {isLoading ? "Loading..." : children}
-      {Primary && (
-        <div className="rounded-full bg-shade ">
-          <img src={icon} alt={icon} className="size-10 object-cover" />
+      {icon && (
+        <div className="ml-2 rounded-full bg-shade">
+          <img src={icon} alt="button icon" className="size-10 object-cover" />
         </div>
       )}
     </button>

@@ -9,23 +9,28 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import NotFound from "./NotFound";
 import Design from "./Design";
+
 import DesignDetails from "./DesignDetails"; // Assume you have this
+import { div } from "framer-motion/client";
 
 const GlobalRouter = () => {
   return (
-    <Router className="max-w-[1440px] mx-auto">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/design" element={<Design />} />
-        <Route path="/design/:id" element={<DesignDetails />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/skills" element={<Skills />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <div>
+      <Navbar />;
+      <Router className="max-w-[1440px] mx-auto">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/design" element={<Design />} />
+          <Route path="/design/:id" element={<DesignDetails />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </div>
   );
 };
 

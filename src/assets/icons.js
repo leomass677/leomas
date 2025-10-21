@@ -1,4 +1,4 @@
-import education from "./applications-education logo.svg";
+import education from "./applications_education_logo.svg";
 import dribble_logo from "./Dribbble_logo logo.svg";
 import figma_logo from "./figma_logo.svg";
 import Github_logo from "./Github_logo.svg";
@@ -12,6 +12,7 @@ import ui from "./Ui.svg";
 import ux from "./Ux.svg";
 import vector from "./Vector.svg";
 import vscode from "./vscode_logo.svg";
+import logo from "./logo.svg";
 
 const icons = {
   education,
@@ -28,5 +29,6 @@ const icons = {
   ux,
   vector,
   vscode,
+  logo,
 };
 export default icons;

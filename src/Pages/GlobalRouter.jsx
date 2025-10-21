@@ -13,8 +13,7 @@ import DesignDetails from "./DesignDetails"; // Assume you have this
 
 const GlobalRouter = () => {
   return (
-    <Router>
-      <Navbar />
+    <Router className="max-w-[1440px] mx-auto">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/design" element={<Design />} />

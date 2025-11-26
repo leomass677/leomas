@@ -6,6 +6,7 @@ import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { IoIosArrowForward } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedButton from "../Component/AnimatedButton";
+import { MdCall } from "react-icons/md";
 
 const Navbar = () => {
   const [open, isOpen] = useState(false);
@@ -36,7 +37,7 @@ const Navbar = () => {
 
         <div>
           <AnimatedButton
-            icon={<AiOutlineMenuUnfold />}
+            icon={<MdCall className="-rotate-80" />}
             onClick={() => alert("Clicked!")}
           >
             Let’s Go!

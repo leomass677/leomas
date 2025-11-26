@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
@@ -15,10 +15,13 @@ import { div } from "framer-motion/client";
 
 const GlobalRouter = () => {
   return (
-    <div className="max-w-[1440px] mx-auto px-[12px] sm:px-[16px] md:px-[44px] ">
-      <Navbar />;
-      <Routes className="max-w-[1440px] mx-auto">
-        <Route path="/" element={<Home />} />
+    <div className=" ">
+      <div className="max-w-[1440px] mx-auto">
+        {" "}
+        <Navbar />;
+      </div>
+      <Routes className=" mt-60 ">
+        <Route path="/home" element={<Home />} />
         <Route path="/design" element={<Design />} />
         <Route path="/design/:id" element={<DesignDetails />} />
         <Route path="/about" element={<About />} />

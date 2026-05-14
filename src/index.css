@@ -1,48 +1,597 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap");
+/* ============================================================
+   FONTS
+   ============================================================ */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Playfair+Display:wght@400;500;600;700&display=swap");
 
 @import "tailwindcss";
 
+/* ============================================================
+   RESET
+   ============================================================ */
+
 html {
   scroll-behavior: smooth;
+  /* Prevent layout shift from scrollbar appearing */
+  /* Sharper text on high-DPI screens */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
+
+/* ============================================================
+   DESIGN TOKENS  (@theme = Tailwind v4 CSS variables)
+   ============================================================ */
 @theme {
-  /* font */
-  --font-inter: "Inter", sans-serif;
-  --font-space-grotesk: "Space Grotesk", sans-serif;
-}
-@theme {
-  /* Nevy-Green */
-  --color-primary-50: #d6dbd6;
-  --color-primary-100: #bbc2bb;
-  --color-primary-200: #98a499;
-  --color-primary-300: #768678;
-  --color-primary-400: #546756;
-  --color-primary-500: #2a3d2b;
-  --color-primary-600: #2a3d2b;
-  --color-primary-700: #213123;
-  --color-primary-800: #19241a;
-  --color-primary-900: #111811;
-  --color-primary-950: #0a0f0a;
-  /* Crayola's */
-  --color-crayola-100: #feefd1;
-  --color-crayola-200: #fde4b3;
-  --color-crayola-300: #fcd68d;
-  --color-crayola-400: #fcc867;
-  --color-crayola-500: #fbbb41;
-  --color-crayola-600: #faad1b;
-  /* Dark */
-  --color-dark: #0f0e0e;
-  /* white */
-  --color-white: #f3f3e0;
-  /* shade */
-  --color-shade: #fcfcfd;
-  /* Grey */
-  --color-grey-100: #e6e6e6;
-  --color-grey-200: #d5d5d5;
-  --color-grey-300: #bfbfbf;
+  /* ── Font Families ── */
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-mono: ui-monospace, "Fira Code", monospace;
+
+  /* ── Brand Palette ── */
+  --color-olive: #6b6b59; /* primary brand */
+  --color-olive-light: #9a9a82; /* secondary / muted brand */
+  --color-olive-faint: rgba(107, 107, 89, 0.07);
+  --color-olive-border: rgba(107, 107, 89, 0.15);
+
+  --color-dark: #0f0e0e; /* headings / heavy text */
+  --color-stone: #313130; /* body text */
+  --color-white: #ffffff;
+  --color-surface: #fcfcfd; /* page background */
+  --color-surface-card: #ffffff; /* card background */
+  --color-success: #089f3e;
+
+  /* ── Grey Scale ── */
+  --color-grey-50: #f7f7f6;
+  --color-grey-100: #ebebea;
+  --color-grey-200: #d5d5d3;
+  --color-grey-300: #bfbfbc;
   --color-grey-400: #aaaaaa;
   --color-grey-500: #959595;
   --color-grey-600: #808080;
+  --color-grey-700: #6b6b6b;
 
-  --color-gradient-1: linear-gradient(135deg, #e59f1a, #98a499, #768678);
+  /* ─────────────────────────────────────────
+     TYPOGRAPHY SCALE
+     Based on a 1.25 (Major Third) modular scale.
+     Line heights follow W3C guidance:
+       headings  → 1.1 – 1.3  (tight, optical)
+       body      → 1.5 – 1.75 (comfortable reading)
+       captions  → 1.4        (short lines, compact)
+     Letter spacing:
+       large display → negative (tighten optical gaps)
+       body          → 0 (neutral)
+       overlines/caps→ positive (improve legibility at small size)
+  ───────────────────────────────────────── */
+
+  /* Display (hero headlines) */
+  --text-display: clamp(2.5rem, 5vw, 3.75rem);
+  --text-display--line-height: 1.05;
+  --text-display--font-weight: 700;
+  --text-display--letter-spacing: -0.03em;
+
+  /* Heading 1 */
+  --text-h1: clamp(2rem, 4vw, 3rem);
+  --text-h1--line-height: 1.1;
+  --text-h1--font-weight: 700;
+  --text-h1--letter-spacing: -0.025em;
+
+  /* Heading 2 */
+  --text-h2: clamp(1.625rem, 3vw, 2.25rem);
+  --text-h2--line-height: 1.2;
+  --text-h2--font-weight: 700;
+  --text-h2--letter-spacing: -0.02em;
+
+  /* Heading 3 */
+  --text-h3: clamp(1.375rem, 2.5vw, 1.875rem);
+  --text-h3--line-height: 1.25;
+  --text-h3--font-weight: 600;
+  --text-h3--letter-spacing: -0.015em;
+
+  /* Heading 4 */
+  --text-h4: clamp(1.125rem, 2vw, 1.5rem);
+  --text-h4--line-height: 1.3;
+  --text-h4--font-weight: 600;
+  --text-h4--letter-spacing: -0.01em;
+
+  /* Heading 5 */
+  --text-h5: 1.25rem;
+  --text-h5--line-height: 1.35;
+  --text-h5--font-weight: 600;
+  --text-h5--letter-spacing: -0.005em;
+
+  /* Heading 6 */
+  --text-h6: 1.0625rem;
+  --text-h6--line-height: 1.4;
+  --text-h6--font-weight: 600;
+  --text-h6--letter-spacing: 0em;
+
+  /* ── Body ── */
+  --text-body-xl: 1.25rem;
+  --text-body-xl--line-height: 1.7;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.7;
+
+  --text-body-base: 1rem; /* 16px */
+  --text-body-base--line-height: 1.65;
+
+  --text-body-sm: 0.9375rem; /* 15px */
+  --text-body-sm--line-height: 1.6;
+
+  --text-body-xs: 0.875rem; /* 14px */
+  --text-body-xs--line-height: 1.55;
+
+  /* ── UI / Functional ── */
+  --text-label: 0.8125rem; /* 13px */
+  --text-label--line-height: 1.4;
+  --text-label--font-weight: 500;
+  --text-label--letter-spacing: 0.01em;
+
+  --text-caption: 0.75rem; /* 12px */
+  --text-caption--line-height: 1.4;
+  --text-caption--letter-spacing: 0em;
+
+  --text-overline: 0.6875rem; /* 11px */
+  --text-overline--line-height: 1.4;
+  --text-overline--font-weight: 600;
+  --text-overline--letter-spacing: 0.12em;
+
+  --text-button: 0.875rem; /* 14px */
+  --text-button--line-height: 1;
+  --text-button--font-weight: 600;
+  --text-button--letter-spacing: 0.02em;
+
+  /* ── Spacing ── */
+  --spacing-section: 6rem; /* between major page sections */
+  --spacing-block: 2.5rem; /* between content blocks */
+  --spacing-element: 1.25rem; /* between UI elements */
+  --spacing-tight: 0.75rem; /* tight pairs */
+
+  /* ── Radius ── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover:
+    0 10px 30px rgba(107, 107, 89, 0.12), 0 2px 6px rgba(107, 107, 89, 0.06);
+  --shadow-focus: 0 0 0 3px rgba(107, 107, 89, 0.25);
+
+  /* ── Transitions ── */
+  --transition-fast: 150ms ease;
+  --transition-base: 220ms ease;
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   BASE LAYER
+   ============================================================ */
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-body-base);
+    line-height: var(--text-body-base--line-height);
+    color: var(--color-stone);
+    background-color: var(--color-surface);
+    /* Prevent orphaned words on narrow columns */
+    text-wrap: pretty;
+  }
+
+  /* Headings — never allow widowed words */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-dark);
+    font-family: var(--font-sans);
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: var(--text-h1);
+    line-height: var(--text-h1--line-height);
+    font-weight: var(--text-h1--font-weight);
+    letter-spacing: var(--text-h1--letter-spacing);
+  }
+  h2 {
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+    font-weight: var(--text-h2--font-weight);
+    letter-spacing: var(--text-h2--letter-spacing);
+  }
+  h3 {
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    font-weight: var(--text-h3--font-weight);
+    letter-spacing: var(--text-h3--letter-spacing);
+  }
+  h4 {
+    font-size: var(--text-h4);
+    line-height: var(--text-h4--line-height);
+    font-weight: var(--text-h4--font-weight);
+    letter-spacing: var(--text-h4--letter-spacing);
+  }
+  h5 {
+    font-size: var(--text-h5);
+    line-height: var(--text-h5--line-height);
+    font-weight: var(--text-h5--font-weight);
+    letter-spacing: var(--text-h5--letter-spacing);
+  }
+  h6 {
+    font-size: var(--text-h6);
+    line-height: var(--text-h6--line-height);
+    font-weight: var(--text-h6--font-weight);
+    letter-spacing: var(--text-h6--letter-spacing);
+  }
+
+  p {
+    /* No blanket margin-bottom — let components own spacing */
+    margin-bottom: 0;
+  }
+
+  /* Prose paragraphs (inside article/section with .prose class) */
+  .prose p + p {
+    margin-top: 1em;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-base);
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  ul,
+  ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Focus ring — accessible, brand-colored */
+  :focus-visible {
+    outline: 2px solid var(--color-olive);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  ::selection {
+    background-color: var(--color-olive);
+    color: var(--color-white);
+  }
+}
+
+/* ============================================================
+   UTILITY LAYER
+   ============================================================ */
+@layer utilities {
+  /* ── Typography classes ── */
+  .text-display {
+    font-size: var(--text-display);
+    line-height: var(--text-display--line-height);
+    font-weight: var(--text-display--font-weight);
+    letter-spacing: var(--text-display--letter-spacing);
+  }
+
+  .text-h1 {
+    font-size: var(--text-h1);
+    line-height: var(--text-h1--line-height);
+    font-weight: var(--text-h1--font-weight);
+    letter-spacing: var(--text-h1--letter-spacing);
+  }
+  .text-h2 {
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+    font-weight: var(--text-h2--font-weight);
+    letter-spacing: var(--text-h2--letter-spacing);
+  }
+  .text-h3 {
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    font-weight: var(--text-h3--font-weight);
+    letter-spacing: var(--text-h3--letter-spacing);
+  }
+  .text-h4 {
+    font-size: var(--text-h4);
+    line-height: var(--text-h4--line-height);
+    font-weight: var(--text-h4--font-weight);
+    letter-spacing: var(--text-h4--letter-spacing);
+  }
+  .text-h5 {
+    font-size: var(--text-h5);
+    line-height: var(--text-h5--line-height);
+    font-weight: var(--text-h5--font-weight);
+    letter-spacing: var(--text-h5--letter-spacing);
+  }
+  .text-h6 {
+    font-size: var(--text-h6);
+    line-height: var(--text-h6--line-height);
+    font-weight: var(--text-h6--font-weight);
+    letter-spacing: var(--text-h6--letter-spacing);
+  }
+
+  .text-body-xl {
+    font-size: var(--text-body-xl);
+    line-height: var(--text-body-xl--line-height);
+  }
+  .text-body-lg {
+    font-size: var(--text-body-lg);
+    line-height: var(--text-body-lg--line-height);
+  }
+  .text-body-base {
+    font-size: var(--text-body-base);
+    line-height: var(--text-body-base--line-height);
+  }
+  .text-body-sm {
+    font-size: var(--text-body-sm);
+    line-height: var(--text-body-sm--line-height);
+  }
+  .text-body-xs {
+    font-size: var(--text-body-xs);
+    line-height: var(--text-body-xs--line-height);
+  }
+
+  .text-label {
+    font-size: var(--text-label);
+    line-height: var(--text-label--line-height);
+    font-weight: var(--text-label--font-weight);
+    letter-spacing: var(--text-label--letter-spacing);
+  }
+
+  .text-caption {
+    font-size: var(--text-caption);
+    line-height: var(--text-caption--line-height);
+    color: var(--color-grey-600);
+  }
+
+  .text-overline {
+    font-size: var(--text-overline);
+    line-height: var(--text-overline--line-height);
+    font-weight: var(--text-overline--font-weight);
+    letter-spacing: var(--text-overline--letter-spacing);
+    text-transform: uppercase;
+    color: var(--color-olive-light);
+  }
+
+  .text-button {
+    font-size: var(--text-button);
+    line-height: var(--text-button--line-height);
+    font-weight: var(--text-button--font-weight);
+    letter-spacing: var(--text-button--letter-spacing);
+  }
+
+  /* ── Font family shortcuts ── */
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  /* ── Colour shortcuts ── */
+  .text-olive {
+    color: var(--color-olive);
+  }
+  .text-olive-light {
+    color: var(--color-olive-light);
+  }
+  .text-dark {
+    color: var(--color-dark);
+  }
+  .text-muted {
+    color: var(--color-grey-600);
+  }
+  .text-subtle {
+    color: var(--color-grey-500);
+  }
+
+  .bg-surface {
+    background-color: var(--color-surface);
+  }
+  .bg-surface-card {
+    background-color: var(--color-surface-card);
+  }
+  .bg-olive-faint {
+    background-color: var(--color-olive-faint);
+  }
+
+  /* ── Border shortcuts ── */
+  .border-olive {
+    border-color: var(--color-olive-border);
+  }
+  .border-olive-md {
+    border-color: rgba(107, 107, 89, 0.25);
+  }
+  .border-olive-sm {
+    border-color: rgba(107, 107, 89, 0.12);
+  }
+
+  /* ── Section spacing ── */
+  .section-y {
+    padding-top: var(--spacing-section);
+    padding-bottom: var(--spacing-section);
+  }
+  .block-y {
+    padding-top: var(--spacing-block);
+    padding-bottom: var(--spacing-block);
+  }
+
+  /* ── Cards ── */
+  .card {
+    background-color: var(--color-surface-card);
+    border: 0.5px solid var(--color-olive-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    transition:
+      transform var(--transition-slow),
+      box-shadow var(--transition-slow),
+      border-color var(--transition-base);
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(107, 107, 89, 0.28);
+  }
+
+  /* ── Pill / chip ── */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--text-overline);
+    font-weight: 600;
+    letter-spacing: var(--text-overline--letter-spacing);
+    text-transform: uppercase;
+    color: var(--color-olive);
+    background-color: var(--color-olive-faint);
+    border: 0.5px solid rgba(107, 107, 89, 0.2);
+    border-radius: var(--radius-full);
+    padding: 4px 12px;
+    white-space: nowrap;
+  }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: var(--text-button);
+    font-weight: var(--text-button--font-weight);
+    letter-spacing: var(--text-button--letter-spacing);
+    border-radius: var(--radius-full);
+    padding: 10px 22px;
+    transition: all var(--transition-base);
+    cursor: pointer;
+    border: none;
+    white-space: nowrap;
+    font-family: var(--font-sans);
+  }
+  .btn:focus-visible {
+    box-shadow: var(--shadow-focus);
+  }
+
+  .btn-primary {
+    color: var(--color-white);
+    background-color: var(--color-olive);
+  }
+  .btn-primary:hover {
+    background-color: #5a5a4a;
+  }
+
+  .btn-outline {
+    color: var(--color-olive);
+    background-color: transparent;
+    border: 0.5px solid rgba(107, 107, 89, 0.35);
+    background: linear-gradient(
+      211deg,
+      rgba(228, 228, 203, 0.25) 6.8%,
+      rgba(241, 241, 229, 0.38) 30.24%,
+      rgba(228, 228, 203, 0.25) 77.12%,
+      rgba(241, 241, 229, 0.5) 100.55%
+    );
+  }
+  .btn-outline:hover {
+    border-color: rgba(107, 107, 89, 0.55);
+    background: linear-gradient(
+      211deg,
+      rgba(228, 228, 203, 0.42) 6.8%,
+      rgba(241, 241, 229, 0.56) 30.24%,
+      rgba(228, 228, 203, 0.42) 77.12%,
+      rgba(241, 241, 229, 0.65) 100.55%
+    );
+    box-shadow: 0 2px 12px rgba(107, 107, 89, 0.14);
+  }
+
+  .btn-ghost {
+    color: var(--color-olive);
+    background-color: transparent;
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .btn-ghost:hover {
+    opacity: 0.7;
+  }
+
+  /* ── Section rule label (used in About / DesignDetails) ── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.25rem;
+  }
+  .section-label::after {
+    content: "";
+    flex: 1;
+    height: 0.5px;
+    background: var(--color-olive-border);
+  }
+  .section-label span {
+    font-size: var(--text-overline);
+    font-weight: var(--text-overline--font-weight);
+    letter-spacing: var(--text-overline--letter-spacing);
+    text-transform: uppercase;
+    color: var(--color-olive-light);
+    white-space: nowrap;
+  }
+
+  /* ── Pulse animation (status dot) ── */
+  .pulse-dot {
+    animation: pulse-ring 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-ring {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.75);
+    }
+  }
+
+  /* ── The gradient fill used on pill/card backgrounds ── */
+  .liner {
+    background: linear-gradient(
+      211deg,
+      rgba(228, 228, 203, 0.25) 6.8%,
+      rgba(241, 241, 229, 0.38) 30.24%,
+      rgba(228, 228, 203, 0.25) 77.12%,
+      rgba(241, 241, 229, 0.5) 100.55%
+    );
+  }
+}
+
+/* ============================================================
+   SCROLLBAR  (non-essential, cosmetic)
+   ============================================================ */
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-grey-50);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-grey-300);
+    border-radius: var(--radius-full);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-grey-500);
+  }
 }

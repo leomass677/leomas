@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import UserCard from "./UserCard";
+import { VscDash } from "react-icons/vsc";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigateTo = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,10 +18,8 @@ const Navbar = () => {
   }, []);
 
   const navigation = [
-    { name: "Home", path: "/" },
     { name: "Work", path: "/work" },
     { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
   ];
 
   // Only these styles can't be done purely in Tailwind:
@@ -66,10 +66,7 @@ const Navbar = () => {
           transform-origin: left;
           transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .nav-link-line:hover::after,
-        .nav-link-line.is-active::after {
-          transform: scaleX(1);
-        }
+       
 
         /* Pulsing availability dot */
         @keyframes pulse-dot {
@@ -90,56 +87,68 @@ const Navbar = () => {
       `}</style>
 
       <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-[#FCFCFD]/85 backdrop-blur-xl border-b border-[#6B6B59]/10 shadow-[0_4px_24px_rgba(107,107,89,0.08),0_1px_2px_rgba(107,107,89,0.05)]"
-            : "bg-[#FCFCFD] border-b border-[#6B6B59]/[0.06]"
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-[#FCFCFD] ${
+          scrolled ? "" : ""
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="max-w-[1200px] mx-auto px-4 h-20 flex items-center justify-between  sm:px-6 lg:px-8 xl:px-[80px]">
+          <div className="flex items-center justify-between h-16 w-full">
             {/* ── Logo ── */}
             <Link to="/" className="flex items-center gap-2.5 no-underline">
               <UserCard />
             </Link>
 
-            {/* ── Desktop Nav Links ── */}
-            <div className="hidden md:flex items-center">
-              {navigation.map((item) => {
-                const isActive = location.pathname === item.path;
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className={`nav-link-line font-dm relative px-[14px] py-1.5 text-[13.5px] font-medium tracking-[0.01em] no-underline transition-colors duration-200 ${
-                      isActive
-                        ? "text-[#6B6B59] is-active"
-                        : "text-[#808080] hover:text-[#6B6B59]"
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* ── Desktop Right: Badge + CTA ── */}
-            <div className="hidden md:flex items-center gap-4">
-              {/* Availability badge */}
-              <div className="font-dm flex items-center gap-1.5 text-[12px] text-[#808080] tracking-[0.01em] whitespace-nowrap">
-                <span className="pulse-dot inline-block w-1.5 h-1.5 rounded-full bg-[#6B6B59] flex-shrink-0" />
-                Available for work
+            <div className="gap-6 flex">
+              {/* ── Desktop Nav Links ── */}
+              <div className="hidden md:flex items-center relative">
+                <VscDash className="absolute  rotate-90 left-1/2 -translate-x-1/2 text-3xl translate-y-" />
+                {navigation.map((item) => {
+                  const isActive = location.pathname === item.path;
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.path}
+                      className={`nav-link-line font-dm relative px-[14px] py-1.5 text-[13.5px] font-medium tracking-[0.01em] no-underline transition-colors duration-200`}
+                    >
+                      <span className="flex flex-col relative h-6 overflow-hidden group px-1 p-0.5">
+                        <p
+                          className={`text-gray-600 group-hover:-translate-y-5  transition-all duration-200 ease-in ${
+                            isActive
+                              ? "text-[#6B6B59] text-dark font-bold -translate-y-6"
+                              : "text-[#808080] hover:text-[#6B6B59]"
+                          } `}
+                        >
+                          {" "}
+                          {item.name}
+                        </p>
+                        <p
+                          className={`text-stone group-hover:-translate-y-6 transition-all duration-300 ease-out font-bold  ${
+                            isActive
+                              ? "text-[#6B6B59] text-dark font-bold -translate-y-6"
+                              : "text-[#808080] hover:text-[#6B6B59]"
+                          }`}
+                        >
+                          {" "}
+                          {item.name}
+                        </p>
+                      </span>
+                    </Link>
+                  );
+                })}
               </div>
 
-              {/* CTA Button */}
-              <button
-                onMouseEnter={() => setCtaHovered(true)}
-                onMouseLeave={() => setCtaHovered(false)}
-                style={ctaHovered ? ctaGradientHover : ctaGradient}
-                className="font-dm text-[13px] font-semibold tracking-[0.03em] text-[#6B6B59] border border-[#6B6B59]/35 rounded-full px-[22px] py-[9px] backdrop-blur-sm cursor-pointer transition-all duration-200 hover:border-[#6B6B59]/55 hover:shadow-[0_2px_14px_rgba(107,107,89,0.14)] hover:-translate-y-px active:translate-y-0"
-              >
-                Let's Talk
-              </button>
+              {/* ── Desktop Right: Badge + CTA ── */}
+              <div className="hidden md:flex items-center gap-4">
+                {/* CTA Button */}
+                <button
+                  onMouseEnter={() => setCtaHovered(true)}
+                  onMouseLeave={() => setCtaHovered(false)}
+                  onClick={() => navigateTo("/contact")}
+                  className="font-dm text-white rounded-full  !bg-stone/60 backdrop-blur-2xl cursor-pointer hover:scale-105  scale-95 transition-all duration-150 pl-[22px] shadow-xs hover:shadow-md py-3 pr-[24px]"
+                >
+                  Let's Talk
+                </button>
+              </div>
             </div>
 
             {/* ── Mobile Hamburger ── */}

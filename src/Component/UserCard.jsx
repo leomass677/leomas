@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import images from "../data/images";
 
 const UserCard = () => {
+  const [hover, setHover] = useState(false);
   return (
-    <div className="flex gap-2 justify-center items-center">
-      <div className="h-16 w-16 rounded-full relative overflow-hidden liner">
+    <div
+      onMouseEnter={() => setHover(true)}
+      className="flex gap-2 justify-center items-center"
+    >
+      <div className="h-14 w-14 rounded-full relative overflow-hidden liner">
         <img
           src={images.Profiler1}
           alt="profile image"
-          className="absolute top-0 left-0 translate-y-[10%]  "
+          className={`absolute  top-0 left-0 translate-y-[10%]  ${hover ? "hover:scale-125 ease-in-out duration-150 transition-transform hover:translate-y-[20%]" : ""}`}
         />
       </div>
       <div>

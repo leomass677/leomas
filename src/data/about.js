@@ -37,6 +37,7 @@ const about = {
   // Bio / About sections
   bio: {
     title: "About Me",
+    img: "../assets/about_image.svg",
     sections: [
       {
         id: "learning",
@@ -209,7 +210,8 @@ const about = {
   website: {
     title: "About This Website",
     version: "v1.0.0",
-    designPhilosophy: "Clean, minimal design with focus on user experience and performance. Built with React, Tailwind CSS, and modern web technologies.",
+    designPhilosophy:
+      "Clean, minimal design with focus on user experience and performance. Built with React, Tailwind CSS, and modern web technologies.",
     technologies: [
       { name: "React", role: "Frontend Framework" },
       { name: "Tailwind CSS", role: "Styling" },
@@ -220,11 +222,12 @@ const about = {
       date: "2026",
       secondsInMaking: function (months = 13) {
         const seconds = Math.floor(months * 30.44 * 24 * 60 * 60);
-        return `${seconds.toLocaleString()} seconds`;
+        return `${seconds.toLocaleString()} seconds in making.`;
       },
       readableTime: "~13 months",
     },
-    nextVersion: "Version 2.0 coming soon with enhanced animations and Dark mode",
+    nextVersion:
+      "Version 2.0 coming soon with enhanced animations and Dark mode",
   },
 
   // Download Options

@@ -37,7 +37,7 @@ const DesignDetails = () => {
   const navigate = useNavigate();
 
   const projects = workDetails.projects;
-  const currentProject = projects.find((d) => d?.id === parseInt(id));
+  const currentProject = projects.find((d) => d?.path === id);
 
   if (!currentProject) {
     return (
@@ -56,16 +56,16 @@ const DesignDetails = () => {
     );
   }
 
-  const currentIndex = projects.findIndex((d) => d?.id === parseInt(id));
+  const currentIndex = projects.findIndex((d) => d?.path === id);
   const prevProject = projects[currentIndex - 1];
   const nextProject = projects[currentIndex + 1];
 
   const handlePrev = () =>
     navigate(
-      `/work/${prevProject ? prevProject.id : projects[projects.length - 1].id}`,
+      `/work/${prevProject ? prevProject.path : projects[projects.length - 1].path}`,
     );
   const handleNext = () =>
-    navigate(`/work/${nextProject ? nextProject.id : projects[0].id}`);
+    navigate(`/work/${nextProject ? nextProject.path : projects[0].path}`);
 
   return (
     <>

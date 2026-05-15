@@ -4,7 +4,7 @@ const workDetails = {
     {
       id: 1,
       slug: "ai-resume-cover-letter-builder",
-      path: "/work/ai-resume-builder",
+      path: "ai-resume-builder",
       title: "AI Resume and Cover Letter Builder",
       description:
         "Create tailored resumes and compelling cover letters in minutes. Powered by AI to highlight your strengths and match job descriptions perfectly.",
@@ -73,7 +73,7 @@ const workDetails = {
     {
       id: 2,
       slug: "crowdsourced-price-intelligence",
-      path: "/work/crowdsourced-price-intelligence",
+      path: "crowdsourced-price-intelligence",
       title: "Crowdsourced Price Intelligence",
       description:
         "Crowdsourced, community-powered data to help you shop smarter and avoid overpaying.",

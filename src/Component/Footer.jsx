@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import workdetails from "../data/workdetails";
-import IconMapper from "../component/IconMapper";
+import IconMapper from "../Component/IconMapper";
 import { MdArrowOutward, MdFileDownload } from "react-icons/md";
 
 const Footer = () => {

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import UserCard from "./UserCard";
 import { VscDash } from "react-icons/vsc";
+import { LuText, LuX } from "react-icons/lu";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,223 +11,267 @@ const Navbar = () => {
   const location = useLocation();
   const navigateTo = useNavigate();
 
+  /* ── Scroll listener ── */
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  /* ── Close mobile menu on route change ── */
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
+  /* ── Lock body scroll when mobile menu is open ── */
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   const navigation = [
     { name: "Work", path: "/work" },
     { name: "About", path: "/about" },
   ];
 
-  // Only these styles can't be done purely in Tailwind:
-  // 1. Custom gradient for CTA (complex rgba linear-gradient)
-  // 2. Pseudo-element underline animation (::after)
-  // 3. Custom font imports
-  const ctaGradient = {
-    background:
-      "linear-gradient(211deg, rgba(228,228,203,0.25) 6.8%, rgba(241,241,229,0.38) 30.24%, rgba(228,228,203,0.25) 77.12%, rgba(241,241,229,0.50) 100.55%)",
-  };
-  const ctaGradientHover = {
-    background:
-      "linear-gradient(211deg, rgba(228,228,203,0.45) 6.8%, rgba(241,241,229,0.60) 30.24%, rgba(228,228,203,0.45) 77.12%, rgba(241,241,229,0.65) 100.55%)",
-  };
-  const logoGradient = {
-    background: "linear-gradient(135deg, #6B6B59 0%, #9A9A82 100%)",
-  };
-
-  const [ctaHovered, setCtaHovered] = useState(false);
-  const [mobilCtaHovered, setMobileCtaHovered] = useState(false);
-
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap');
+        .font-dm { font-family: 'DM Sans', system-ui, sans-serif; }
 
-        .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
-        .font-dm       { font-family: 'DM Sans', system-ui, sans-serif; }
-
-        /* Animated underline via ::after pseudo-element */
-        .nav-link-line {
-          position: relative;
-        }
-        .nav-link-line::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 14px;
-          right: 14px;
-          height: 1.5px;
-          background: #6B6B59;
-          border-radius: 2px;
-          transform: scaleX(0);
-          transform-origin: left;
-          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-       
-
-        /* Pulsing availability dot */
         @keyframes pulse-dot {
           0%, 100% { opacity: 1; transform: scale(1); }
           50%       { opacity: 0.4; transform: scale(0.75); }
         }
-        .pulse-dot {
-          animation: pulse-dot 2.5s ease-in-out infinite;
-        }
-
-        /* Logo hover */
-        .logo-mark {
-          transition: transform 0.25s ease;
-        }
-        .logo-mark:hover {
-          transform: scale(1.08) rotate(-3deg);
-        }
+        .pulse-dot { animation: pulse-dot 2.5s ease-in-out infinite; }
       `}</style>
 
-      <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-[#FCFCFD] ${
-          scrolled ? "" : ""
-        }`}
+      {/* ── Fixed nav wrapper ── */}
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+        className="fixed top-0 left-0 w-full z-50 bg-[#FCFCFD] transition-shadow duration-300"
       >
-        <div className="max-w-[1200px] mx-auto px-4 h-20 flex items-center justify-between  sm:px-6 lg:px-8 xl:px-[80px]">
-          <div className="flex items-center justify-between h-16 w-full">
-            {/* ── Logo ── */}
-            <Link to="/" className="flex items-center gap-2.5 no-underline">
+        {/* ── Inner bar ── */}
+        {/* h-16 on mobile (64px), h-20 on md+ */}
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-[80px] h-16 md:h-20 flex items-center justify-between">
+          {/* Logo / UserCard */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="no-underline flex-shrink-0"
+          >
+            <Link to="/" className="no-underline">
               <UserCard />
             </Link>
+          </motion.div>
 
-            <div className="gap-6 flex">
-              {/* ── Desktop Nav Links ── */}
-              <div className="hidden md:flex items-center relative">
-                <VscDash className="absolute  rotate-90 left-1/2 -translate-x-1/2 text-3xl translate-y-" />
-                {navigation.map((item) => {
-                  const isActive = location.pathname === item.path;
-                  return (
+          {/* Desktop: nav links + CTA */}
+          <div className="hidden md:flex items-center gap-6">
+            {/* Nav links with scroll-flip animation */}
+            <div className="flex items-center  relative">
+              {/* Vertical divider between links */}
+              <VscDash className="absolute left-1/2 -translate-x-1/2 rotate-90 text-3xl text-[#9A9A82] pointer-events-none" />
+
+              {navigation.map((item, idx) => {
+                const isActive = location.pathname === item.path;
+                return (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1, duration: 0.3 }}
+                    className="flex gap-5 items-center"
+                  >
                     <Link
-                      key={item.name}
                       to={item.path}
-                      className={`nav-link-line font-dm relative px-[14px] py-1.5 text-[13.5px] font-medium tracking-[0.01em] no-underline transition-colors duration-200`}
+                      className="relative px-[16px]  py-1.5 no-underline font-dm"
                     >
-                      <span className="flex flex-col relative h-6 overflow-hidden group px-1 p-0.5">
+                      {/* Flip container: normal → bold on hover / active */}
+                      <span className="flex flex-col h-6 overflow-hidden group">
+                        {/* Line 1 — default */}
                         <p
-                          className={`text-gray-600 group-hover:-translate-y-5  transition-all duration-200 ease-in ${
+                          className={`px-1 transition-all duration-200 ease-in leading-6 ${
                             isActive
-                              ? "text-[#6B6B59] text-dark font-bold -translate-y-6"
-                              : "text-[#808080] hover:text-[#6B6B59]"
-                          } `}
-                        >
-                          {" "}
-                          {item.name}
-                        </p>
-                        <p
-                          className={`text-stone group-hover:-translate-y-6 transition-all duration-300 ease-out font-bold  ${
-                            isActive
-                              ? "text-[#6B6B59] text-dark font-bold -translate-y-6"
-                              : "text-[#808080] hover:text-[#6B6B59]"
+                              ? "text-[#6B6B59] font-bold -translate-y-6"
+                              : "text-[#808080] group-hover:-translate-y-6"
                           }`}
                         >
-                          {" "}
+                          {item.name}
+                        </p>
+                        {/* Line 2 — hovered / active (bold) */}
+                        <p
+                          className={`px-1 font-bold transition-all duration-300 ease-out leading-6 ${
+                            isActive
+                              ? "text-[#6B6B59] -translate-y-6"
+                              : "text-[#313130] group-hover:-translate-y-6"
+                          }`}
+                        >
                           {item.name}
                         </p>
                       </span>
                     </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Let's Talk CTA */}
+            <motion.button
+              onClick={() => navigateTo("/contact")}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="
+                font-dm text-white bg-[#313130]/60 backdrop-blur-2xl
+                rounded-full px-6 py-3
+                text-[13.5px] font-medium
+                scale-95 hover:scale-105
+                shadow-xs hover:shadow-md
+                transition-all duration-150 cursor-pointer
+              "
+            >
+              Let's Talk
+            </motion.button>
+          </div>
+
+          {/* Mobile hamburger */}
+          <motion.button
+            onClick={() => setIsOpen((v) => !v)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            whileTap={{ scale: 0.9 }}
+            className="md:hidden text-[28px] text-[#0F0E0E] p-1 flex items-center justify-center"
+          >
+            {isOpen ? <LuX /> : <LuText />}
+          </motion.button>
+        </div>
+
+        {/* ── Mobile menu panel ── */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="md:hidden overflow-hidden bg-[#FCFCFD]/97 backdrop-blur-xl border-t border-[#6B6B59]/[0.08]"
+            >
+              <motion.div
+                className="px-5 pt-4 pb-6 flex flex-col gap-1"
+                initial={{ y: -20 }}
+                animate={{ y: 0 }}
+                transition={{ delay: 0.1, duration: 0.3 }}
+              >
+                {/* Nav links */}
+                {navigation.map((item, idx) => {
+                  const isActive = location.pathname === item.path;
+                  return (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + idx * 0.1, duration: 0.3 }}
+                    >
+                      <Link
+                        to={item.path}
+                        onClick={() => setIsOpen(false)}
+                        className={`
+                          font-dm text-[14px] font-medium tracking-[0.01em]
+                          px-3.5 py-2.5 rounded-[10px] no-underline
+                          transition-all duration-200
+                          ${
+                            isActive
+                              ? "text-[#6B6B59] bg-[#6B6B59]/[0.08]"
+                              : "text-[#808080] hover:text-[#6B6B59] hover:bg-[#6B6B59]/[0.05]"
+                          }
+                        `}
+                      >
+                        {item.name}
+                      </Link>
+                    </motion.div>
                   );
                 })}
-              </div>
 
-              {/* ── Desktop Right: Badge + CTA ── */}
-              <div className="hidden md:flex items-center gap-4">
-                {/* CTA Button */}
-                <button
-                  onMouseEnter={() => setCtaHovered(true)}
-                  onMouseLeave={() => setCtaHovered(false)}
-                  onClick={() => navigateTo("/contact")}
-                  className="font-dm text-white rounded-full  !bg-stone/60 backdrop-blur-2xl cursor-pointer hover:scale-105  scale-95 transition-all duration-150 pl-[22px] shadow-xs hover:shadow-md py-3 pr-[24px]"
+                {/* Availability + action buttons */}
+                <motion.div
+                  className="mt-3 pt-3 border-t border-[#6B6B59]/10 flex flex-col gap-3"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.3 }}
                 >
-                  Let's Talk
-                </button>
-              </div>
-            </div>
+                  <div className="font-dm flex items-center gap-2 text-[12px] text-[#808080]">
+                    <span className="pulse-dot inline-block w-1.5 h-1.5 rounded-full bg-[#6B6B59] flex-shrink-0" />
+                    Available for work
+                  </div>
 
-            {/* ── Mobile Hamburger ── */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
-              className="md:hidden flex items-center justify-center w-9 h-9 rounded-[8px] border border-[#6B6B59]/20 text-[#6B6B59] transition-all duration-200 hover:bg-[#6B6B59]/[0.06] hover:border-[#6B6B59]/35"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              >
-                {isOpen ? (
-                  <>
-                    <path d="M4 4L14 14" />
-                    <path d="M14 4L4 14" />
-                  </>
-                ) : (
-                  <>
-                    <path d="M3 5H15" />
-                    <path d="M3 9H15" />
-                    <path d="M3 13H10" />
-                  </>
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
+                  <div className="flex flex-col gap-3 mt-2">
+                    {/* Let's Talk */}
+                    <motion.button
+                      onClick={() => {
+                        navigateTo("/contact");
+                        setIsOpen(false);
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="
+                        w-full text-center px-8 py-4
+                        bg-[#0F0E0E] text-[#f8f8f5]
+                        font-dm text-[14px] font-medium
+                        rounded-[32px]
+                        active:scale-95 transition-all ease-in-out duration-200
+                        cursor-pointer border-none
+                      "
+                    >
+                      Let's Talk
+                    </motion.button>
 
-        {/* ── Mobile Menu Panel ── */}
-        <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-[#FCFCFD]/97 backdrop-blur-xl border-t border-[#6B6B59]/[0.08] ${
-            isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-          }`}
-        >
-          <div className="px-5 pt-3 pb-5 flex flex-col gap-1">
-            {navigation.map((item) => {
-              const isActive = location.pathname === item.path;
-              return (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  onClick={() => setIsOpen(false)}
-                  className={`font-dm text-[14px] font-medium tracking-[0.01em] px-3.5 py-2.5 rounded-[10px] no-underline transition-all duration-200 ${
-                    isActive
-                      ? "text-[#6B6B59] bg-[#6B6B59]/[0.08]"
-                      : "text-[#808080] hover:text-[#6B6B59] hover:bg-[#6B6B59]/[0.05]"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              );
-            })}
+                    {/* Download CV */}
+                    <motion.button
+                      onClick={() => {
+                        window.open("/files/cv.pdf", "_blank");
+                        setIsOpen(false);
+                      }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="
+                        w-full text-center px-8 py-4
+                        bg-[#878789] text-[#f8f8f5]
+                        font-dm text-[14px] font-medium
+                        rounded-[32px]
+                        active:scale-95 transition-all ease-in-out duration-200
+                        cursor-pointer border-none
+                      "
+                    >
+                      Download CV
+                    </motion.button>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
 
-            {/* Mobile footer */}
-            <div className="mt-3 pt-3 border-t border-[#6B6B59]/10 flex flex-col gap-3">
-              <div className="font-dm flex items-center gap-2 text-[12px] text-[#808080]">
-                <span className="pulse-dot inline-block w-1.5 h-1.5 rounded-full bg-[#6B6B59] flex-shrink-0" />
-                Available for work
-              </div>
-              <button
-                onMouseEnter={() => setMobileCtaHovered(true)}
-                onMouseLeave={() => setMobileCtaHovered(false)}
-                style={mobilCtaHovered ? ctaGradientHover : ctaGradient}
-                className="font-dm w-full text-[14px] font-semibold tracking-[0.03em] text-[#6B6B59] border border-[#6B6B59]/35 rounded-xl py-2.5 transition-all duration-200 hover:border-[#6B6B59]/55 cursor-pointer"
-              >
-                Let's Talk
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* ── Mobile backdrop ── */}
+      {/* Dim the page behind the open menu; click to close */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-[#0F0E0E]/40 backdrop-blur-[2px] md:hidden"
+            onClick={() => setIsOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

@@ -13,13 +13,13 @@ const WorkDetailCard = ({
   const basicinfo = workDetails.projects;
 
   return (
-    <div className="flex flex-col max-w-[1200px] mx-auto px-4 gap-4 sm:gap-5 md:px-6 lg:px-10 xl:px-20 w-full">
+    <div className="flex flex-col max-w-[1200px] mx-auto px-4 gap-9  sm:gap-10 md:gap-12 lg:gap-14 xl:gap-20 md:px-6 lg:px-10 xl:px-20 w-full">
       {basicinfo.map((project) => (
         <Link
           to={`/work/${project.path}`}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
-          className="flex flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8"
+          className="flex flex-col gap-4 sm:gap-5 lg:gap-6"
           key={project.id}
         >
           {/* ── Image card ── */}
@@ -27,16 +27,14 @@ const WorkDetailCard = ({
             className="
             w-full overflow-hidden
             liner
-            rounded-2xl sm:rounded-[24px] lg:rounded-[32px]
-            rounded-tr-[32px] sm:rounded-tr-[40px] lg:rounded-tr-[48px]
-            rounded-bl-[32px] sm:rounded-bl-[40px] lg:rounded-bl-[48px]
+            rounded-2xl lg:rounded-[32px]
             p-4 sm:p-6 lg:p-10 xl:p-12
             flex items-center justify-center
             transition-all duration-300 ease-out
             ]
           "
           >
-            <div className="w-full overflow-hidden rounded-xl sm:rounded-2xl">
+            <div className="w-full overflow-hidden">
               <img
                 src={image}
                 alt={imageAlt}
@@ -51,23 +49,24 @@ const WorkDetailCard = ({
           </div>
 
           {/* ── Meta row ── */}
-          <div className="flex flex-col gap-2 px-1">
+          <div className="flex flex-col px-1">
             {/* Title row */}
-            <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start justify-between">
               <h6
                 className="
-                font-bold text-[#0F0E0E] tracking-[-0.015em]
-                text-[15px] leading-[1.35]
-                sm:text-[16px]
-                md:text-[17px]
-                lg:text-[18px]
+                font-bold text-[#0F0E0E] tracking-[-0.015em]        
+                md:text-[18px]
+                text-[16px]
+                leading-[32px]
+                font-[350] 
+      
                 flex items-center gap-1.5 flex-wrap
               "
               >
                 {project.title}
                 <MdArrowOutward
                   className="
-                  text-[#6B6B59] flex-shrink-0
+                  text-dark flex-shrink-0
                   text-[16px] sm:text-[18px] lg:text-[20px]
                   transition-transform duration-200
                   group-hover:translate-x-0.5 group-hover:-translate-y-0.5
@@ -79,8 +78,9 @@ const WorkDetailCard = ({
               <span
                 className="
                 text-[#9A9A82] font-normal flex-shrink-0
-                text-[12px] sm:text-[13px] lg:text-[14px]
-                leading-[1.35] pt-0.5
+                  text-[16px]
+                leading-[32px]
+                font-[350] 
               "
               >
                 © {project.year}
@@ -91,10 +91,9 @@ const WorkDetailCard = ({
             <p
               className="
               text-[#808080]
-              text-[13px] leading-[1.6]
-              sm:text-[14px] sm:leading-[1.65]
-              lg:text-[14px] lg:leading-[1.68]
-              max-w-[680px]
+                text-[16px]
+                leading-[32px]
+                font-[350] 
             "
             >
               {project.description.split(". ").slice(0, 1).join(". ")}.

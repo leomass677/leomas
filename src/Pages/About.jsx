@@ -2,9 +2,9 @@ import React from "react";
 import IconMapper from "../Component/IconMapper";
 import about from "../data/about";
 import images from "../data/images";
-import { div, section } from "framer-motion/client";
 import BeyondTheScreen from "../Component/beyondTheScreen";
 import AboutWebsite from "../Component/aboutWebsite";
+import WorkExperience from "../Component/workExperience";
 
 /* ── Tiny reusable atoms ── */
 
@@ -69,6 +69,7 @@ const About = () => {
       </div>
       <BeyondTheScreen />
       <AboutWebsite />
+      <WorkExperience />
     </section>
   );
 };

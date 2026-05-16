@@ -15,27 +15,17 @@ const GlobalRouter = () => {
   useEffect(() => {
     const lenis = new Lenis({
       autoRaf: true,
-      duration: 1.8,
+      duration: 1.2,
       easing: (t) => 1 - Math.pow(1 - t, 3),
-
-      // Mobile-specific optimizations
       smoothWheel: true,
-      smoothTouch: true, // CRITICAL for mobile
-      touchMultiplier: 2.5, // Makes touch scrolling feel natural
-      touchInertiaExponent: 1.7, // Controls momentum on mobile
-      syncTouch: false, // Better performance on iOS
-
-      wheelMultiplier: 1.2,
-      lerp: 0.08,
+      smoothTouch: true,
+      touchMultiplier: 2,
+      syncTouch: true,
+      wheelMultiplier: 1,
+      lerp: 0.1,
       overscroll: true,
-      allowNestedScroll: true, // Important for mobile menus/modals
+      allowNestedScroll: true,
       anchors: true,
-    });
-
-    // Optional: Log to confirm Lenis is working on mobile
-    lenis.on("scroll", (e) => {
-      // Remove this log in production
-      // console.log('Smooth scroll active:', e.animatedScroll);
     });
 
     return () => lenis.destroy();

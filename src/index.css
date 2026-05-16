@@ -1,15 +1,7 @@
-/* ============================================================
-   FONTS
-   Inter       → UI / body text (variable font, full weight range)
-   Roboto Flex → headings / display (variable font, ultra-flexible axes)
-   ============================================================ */
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Flex:opsz,wght@8..144,100..900&display=swap");
 
 @import "tailwindcss";
 
-/* ============================================================
-   RESET
-   ============================================================ */
 *,
 *::before,
 *::after {
@@ -61,9 +53,6 @@ html.lenis body {
   background: #555;
 }
 
-/* ============================================================
-   DESIGN TOKENS  (@theme = Tailwind v4 CSS variables)
-   ============================================================ */
 @theme {
   /* ── Font Families ── */
   --font-sans: "Inter", system-ui, sans-serif; /* body / UI */
@@ -92,22 +81,6 @@ html.lenis body {
   --color-grey-500: #959595;
   --color-grey-600: #808080;
   --color-grey-700: #6b6b6b;
-
-  /* ─────────────────────────────────────────
-     TYPOGRAPHY SCALE
-     • Roboto Flex for headings: uses variable font axes for
-       tight optical sizing at large sizes (opsz, wdth, wght)
-     • Inter for body: excellent legibility at 14–16px,
-       variable opsz axis for optical precision
-     Line heights:
-       headings → 1.05 – 1.3  (tight optical)
-       body     → 1.55 – 1.7  (comfortable reading)
-       UI/label → 1.4         (compact, interface)
-     Letter spacing:
-       display/h1 → negative  (close optical gaps at large size)
-       body       → -0.01em   (Inter looks best slightly tighter)
-       overlines  → positive  (all-caps legibility)
-  ───────────────────────────────────────── */
 
   /* Display */
   --text-display: clamp(2.5rem, 5vw, 3.75rem);
@@ -212,9 +185,6 @@ html.lenis body {
   --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ============================================================
-   BASE LAYER
-   ============================================================ */
 @layer base {
   body {
     font-family: var(--font-sans);

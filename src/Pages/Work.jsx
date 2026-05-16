@@ -58,7 +58,7 @@ const ImagePlaceholder = () => (
 /* ── Project Card ── */
 const ProjectCard = ({ project, index }) => (
   <Link
-    to={`/work/${project.id}`}
+    to={`/work/${project.path}`}
     className="group bg-white border border-[#6B6B59]/[0.13] rounded-[18px] overflow-hidden no-underline flex flex-col transition-all duration-250 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(107,107,89,0.12)] hover:border-[#6B6B59]/[0.28]"
   >
     {/* Image */}

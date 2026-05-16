@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import workdetails from "../data/workdetails";
 import IconMapper from "../Component/IconMapper";
 import { MdArrowOutward, MdFileDownload } from "react-icons/md";
@@ -15,7 +14,7 @@ const Footer = () => {
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [footer]);
 
   return (
     <footer className="w-full mt-24 lg:mt-32 bg-[#0F0E0E] text-white">

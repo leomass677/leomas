@@ -39,7 +39,7 @@ const GlobalRouter = () => {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/work" element={<Work />} />
-          <Route path="/work/:id" element={<DesignDetails />} />
+          <Route path="/work/:projectPath" element={<DesignDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />

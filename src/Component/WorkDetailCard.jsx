@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { MdArrowOutward } from "react-icons/md";
 import images from "../data/images";
 import { Link } from "react-router-dom";
@@ -8,8 +8,6 @@ const WorkDetailCard = ({
   image = images?.ai_resume_image,
   imageAlt = "AI Resume and Cover Letter",
 }) => {
-  const [hovered, setHovered] = useState(false);
-
   const basicinfo = workDetails.projects;
 
   return (
@@ -17,22 +15,20 @@ const WorkDetailCard = ({
       {basicinfo.map((project) => (
         <Link
           to={`/work/${project.path}`}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
           className="flex flex-col gap-4 sm:gap-5 lg:gap-6"
           key={project.id}
         >
           {/* ── Image card ── */}
           <div
-            className="
-            w-full overflow-hidden
+            className={` w-full overflow-hidden
             liner
-            rounded-2xl lg:rounded-[32px]
+            
+            lg:rounded-[32px]
             p-4 sm:p-6 lg:p-10 xl:p-12
             flex items-center justify-center
             transition-all duration-300 ease-out
-            ]
-          "
+            ${parseInt(project.id) % 2 === 0 ? "rounded-tr-4xl rounded-bl-4xl " : "rounded-tl-4xl rounded-br-4xl"}
+            ]`}
           >
             <div className="w-full overflow-hidden">
               <img
@@ -54,19 +50,21 @@ const WorkDetailCard = ({
             <div className="flex items-start justify-between">
               <h6
                 className="
-                font-bold text-[#0F0E0E] tracking-[-0.015em]        
+                font-bold tracking-[-0.015em]        
                 md:text-[18px]
                 text-[16px]
                 leading-[32px]
-                font-[350] 
+                font-semibold
+                text-gray-700
       
                 flex items-center gap-1.5 flex-wrap
               "
               >
                 {project.title}
                 <MdArrowOutward
+                  size={20}
                   className="
-                  text-dark flex-shrink-0
+                  text-gray-700 flex-shrink-0
                   text-[16px] sm:text-[18px] lg:text-[20px]
                   transition-transform duration-200
                   group-hover:translate-x-0.5 group-hover:-translate-y-0.5
@@ -77,23 +75,23 @@ const WorkDetailCard = ({
 
               <span
                 className="
-                text-[#9A9A82] font-normal flex-shrink-0
+                text-gray-500 font-normal flex-shrink-0
                   text-[16px]
                 leading-[32px]
                 font-[350] 
               "
               >
-                © {project.year}
+                ©{project.year}
               </span>
             </div>
 
             {/* Description */}
             <p
               className="
-              text-[#808080]
+              text-gray-500
                 text-[16px]
-                leading-[32px]
-                font-[350] 
+                leading-[24px]
+                font-normal 
             "
             >
               {project.description.split(". ").slice(0, 1).join(". ")}.

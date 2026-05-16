@@ -35,38 +35,70 @@ const Pill = ({ children, variant = "default" }) => {
 const About = () => {
   return (
     <section className="flex flex-col gap-5 justify-center mt-10">
-      {/* about us */}
-      <div className="flex flex-col-reverse lg:flex-row max-w-[1200px] mx-auto px-4 gap-5 md:gap-6 md:px-6 lg:px-10 xl:px-20 w-full">
-        {/* text section */}
-        <div className="flex-1 flex flex-col gap-5 xl:pr-4">
-          <h3 className="text-4xl md:text-5xl italic font-medium">
+      {/* ── About section ── */}
+      <div className="flex flex-col max-w-[1200px] mx-auto px-4 gap-7 md:gap-6 md:px-6 lg:px-10 xl:px-20 w-full">
+        {/* Title */}
+        <div className="flex-1 flex flex-col xl:pr-4">
+          <h3 className="text-4xl md:text-5xl italic font-medium break-words">
             {about.bio.title.split(" ")[0]}
             <span className="text-grey-600">
               {" "}
               {about.bio.title.split(" ")[1]}
             </span>
           </h3>
-          <div className="flex flex-col gap-5">
+        </div>
+
+        {/* Content row: bio text left, image right */}
+        <div className="flex flex-col-reverse lg:justify-between lg:flex-row gap-6">
+          {/* Bio sections — min-w-0 prevents flex child from overflowing */}
+          <div className="w-full lg:w-1/2 xl:w-7/12 flex flex-col gap-5 min-w-0">
             {about.bio.sections.map((section) => (
-              <div id={section.id} className="flex flex-col gap-1">
-                <h6 className="text-xl">
+              <div key={section.id} className="flex flex-col gap-1">
+                {/* Section heading — allow long highlights to wrap */}
+                <h6 className="text-xl break-words">
                   {section.header}{" "}
                   <span className="text-grey-700">{section.highlight}</span>
                 </h6>
+
                 <div className="flex flex-col gap-2">
-                  {section.content.map((item) => (
-                    <p>{item}</p>
+                  {section.content.map((item, idx) => (
+                    <p
+                      key={idx}
+                      lang="en"
+                      className="
+                        text-sm sm:text-base
+                        leading-relaxed
+                        text-left
+                        break-words
+                        hyphens-auto
+                        [overflow-wrap:anywhere]
+                      "
+                    >
+                      {item}
+                    </p>
                   ))}
                 </div>
               </div>
             ))}
           </div>
-        </div>
-        {/* imag section */}
-        <div className="flex-1">
-          <img src={images.about_image} alt={about.bio.title} />
+
+          {/* Image — constrained so it never pushes layout */}
+          <div className="w-full lg:w-5/12 flex lg:justify-end h-fit flex-shrink-0">
+            <img
+              src={images.about_image}
+              alt={about.bio.title}
+              className="
+                object-cover
+                w-full
+                lg:max-w-[420px]
+                h-auto
+                
+              "
+            />
+          </div>
         </div>
       </div>
+
       <BeyondTheScreen />
       <AboutWebsite />
       <WorkExperience />

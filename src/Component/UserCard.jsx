@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import images from "../data/images";
 
 const UserCard = () => {
@@ -25,9 +24,9 @@ const UserCard = () => {
           transition={{ duration: 0.15, ease: "easeInOut" }}
         />
       </div>
-      <div>
+      <div className="flex flex-col">
         <motion.h6
-          className="text-[#0F0E0E] font-semibold text-[16px]"
+          className="text-dark text-[15px] font-semibold sm:text-[16px]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.3 }}

@@ -1,62 +1,57 @@
 import React from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import workDetails from "../data/workdetails";
+import {
+  TbArrowLeft,
+  TbArrowUpRight,
+  TbArrowNarrowRight,
+} from "react-icons/tb";
+import {
+  SiFigma,
+  SiReact,
+  SiGithub,
+  SiJavascript,
+  SiTailwindcss,
+} from "react-icons/si";
+import { FaJava } from "react-icons/fa";
 
-const ArrowLeft = () => (
-  <svg
-    width="14"
-    height="14"
-    viewBox="0 0 14 14"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M9 2L4 7l5 5" />
-  </svg>
-);
-
-const ArrowRight = () => (
-  <svg
-    width="14"
-    height="14"
-    viewBox="0 0 14 14"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M5 2l5 5-5 5" />
-  </svg>
-);
+/* ── Tool icon map ── */
+const TOOL_ICONS = {
+  Figma: <SiFigma className="text-[#F24E1E]" />,
+  React: <SiReact className="text-[#61DAFB]" />,
+  GitHub: <SiGithub className="text-[#333]" />,
+  JavaScript: <SiJavascript className="text-[#F7DF1E]" />,
+  Tailwind: <SiTailwindcss className="text-[#38BDF8]" />,
+  TailwindCSS: <SiTailwindcss className="text-[#38BDF8]" />,
+  Java: <FaJava className="text-[#ED8B00]" />,
+};
 
 const DesignDetails = () => {
-  const { id } = useParams();
+  const { projectPath } = useParams();
   const navigate = useNavigate();
 
   const projects = workDetails.projects;
-  const currentProject = projects.find((d) => d?.path === id);
+  const currentProject = projects.find((d) => d?.path === projectPath);
 
+  /* ── 404 ── */
   if (!currentProject) {
     return (
-      <div className="min-h-screen bg-[#FCFCFD] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FCFCFD] flex items-center justify-center px-4">
         <div className="text-center">
           <p className="text-5xl font-bold text-[#6B6B59] mb-3">404</p>
           <p className="text-[#808080] text-base mb-6">Project not found.</p>
           <Link
-            to="/design"
+            to="/work"
             className="inline-flex items-center gap-2 text-sm font-medium text-[#6B6B59] border border-[#6B6B59]/30 rounded-full px-5 py-2 hover:bg-[#6B6B59]/[0.06] transition-all no-underline"
           >
-            <ArrowLeft /> Back to all work
+            <TbArrowLeft size={14} /> Back to all work
           </Link>
         </div>
       </div>
     );
   }
 
-  const currentIndex = projects.findIndex((d) => d?.path === id);
+  const currentIndex = projects.findIndex((d) => d?.path === projectPath);
   const prevProject = projects[currentIndex - 1];
   const nextProject = projects[currentIndex + 1];
 
@@ -68,168 +63,283 @@ const DesignDetails = () => {
     navigate(`/work/${nextProject ? nextProject.path : projects[0].path}`);
 
   return (
-    <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap');
-        .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
-        .font-dm       { font-family: 'DM Sans', system-ui, sans-serif; }
-        .section-rule::after {
-          content: '';
-          flex: 1;
-          height: 0.5px;
-          background: rgba(107,107,89,0.15);
-        }
-      `}</style>
+    <main className="min-h-screen bg-[#FCFCFD] pt-24 pb-20">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16">
+        {/* ━━━ BACK LINK ━━━ */}
+        <Link
+          to="/work"
+          className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.1em] uppercase text-[#808080] hover:text-[#6B6B59] transition-colors mb-8 no-underline group"
+        >
+          <TbArrowLeft
+            size={14}
+            className="group-hover:-translate-x-0.5 transition-transform"
+          />
+          Back to work
+        </Link>
 
-      <main className="font-dm min-h-screen bg-[#FCFCFD] px-5 sm:px-8 lg:px-0">
-        <div className="max-w-[760px] mx-auto py-12 lg:py-16">
-          {/* ── Back link ── */}
-          <Link
-            to="/design"
-            className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.1em] uppercase text-[#808080] hover:text-[#6B6B59] transition-colors mb-10 no-underline group"
-          >
-            <span className="group-hover:-translate-x-0.5 transition-transform">
-              <ArrowLeft />
-            </span>
-            Back to work
-          </Link>
-
-          {/* ── Header ── */}
-          <header className="mb-9">
-            <span className="inline-block text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] bg-[#6B6B59]/[0.07] rounded-full px-3 py-1 mb-4">
-              Case Study
-            </span>
-            <h1 className="font-playfair text-[34px] sm:text-[40px] font-bold text-[#0F0E0E] leading-[1.15] tracking-tight mb-3">
+        {/* ━━━ HEADER ━━━ */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-12 mb-8 lg:mb-10">
+          {/* Left: category + title + description */}
+          <div className="flex flex-col gap-3">
+            <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82]">
+              Designing
+            </p>
+            <h1
+              className="
+                font-bold text-[#0F0E0E] tracking-[-0.02em] leading-[1.12]
+                text-[28px] sm:text-[34px] md:text-[38px] lg:text-[42px]
+              "
+            >
               {currentProject.title}
             </h1>
-            <p className="text-[15.5px] text-[#808080] leading-relaxed max-w-[580px]">
+            <p className="text-[14px] sm:text-[15px] text-[#808080] leading-[1.7] max-w-[560px]">
               {currentProject.description}
             </p>
-          </header>
+          </div>
 
-          {/* ── Meta strip ── */}
-          <div className="flex flex-wrap border-t border-b border-[#6B6B59]/[0.13] mb-12">
+          {/* Right: meta grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-x-8 gap-y-4 lg:min-w-[220px] lg:pt-2">
             {currentProject.details.map((detail, idx) => (
-              <div
-                key={idx}
-                className="flex-1 min-w-[110px] px-5 py-4 border-r border-[#6B6B59]/[0.10] last:border-r-0"
-              >
-                <p className="text-[10px] font-semibold tracking-[0.1em] uppercase text-[#9A9A82] mb-1">
+              <div key={idx} className="flex flex-col gap-0.5">
+                <p className="text-[10px] font-semibold tracking-[0.1em] uppercase text-[#9A9A82]">
                   {detail.label}
                 </p>
-                <p className="text-[13.5px] font-medium text-[#0F0E0E]">
+                <p className="text-[14px] font-semibold text-[#0F0E0E]">
                   {detail.value}
                 </p>
               </div>
             ))}
           </div>
+        </div>
 
-          {/* ── Background Story ── */}
-          <section className="mb-11">
-            <div className="flex items-center gap-3 mb-4 section-rule">
-              <span className="text-[10.5px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] whitespace-nowrap">
-                Background
-              </span>
-            </div>
+        {/* ━━━ HERO IMAGE ━━━ */}
+        {currentProject.cardImage && (
+          <div className="w-full bg-[#F0EFE8] rounded-2xl sm:rounded-[24px] overflow-hidden mb-14 sm:mb-16">
+            <img
+              src={currentProject.cardImage}
+              alt={currentProject.title}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        )}
+
+        {/* ━━━ BACKGROUND STORY ━━━ */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-8 lg:gap-16 mb-14">
+          {/* Story text */}
+          <div>
+            <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] mb-4">
+              Background Story
+            </p>
             {currentProject.backgroundStory.map((para, idx) => (
               <p
                 key={idx}
-                className="text-[15px] text-[#555] leading-[1.78] mb-3 last:mb-0"
+                className="text-[14px] sm:text-[15px] text-[#555] leading-[1.78] mb-3 last:mb-0"
               >
                 {para}
               </p>
             ))}
-          </section>
+          </div>
 
-          {/* ── My Contribution ── */}
-          <section className="mb-11">
-            <div className="flex items-center gap-3 mb-4 section-rule">
-              <span className="text-[10.5px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] whitespace-nowrap">
-                My Contribution
-              </span>
-            </div>
-            <ul className="flex flex-col gap-2.5 list-none">
+          {/* Contribution sidebar */}
+          <div className="lg:pt-8">
+            <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] mb-4">
+              My Contribution
+            </p>
+            <ul className="flex flex-col gap-2">
               {currentProject.contribution.map((item, idx) => (
                 <li
                   key={idx}
-                  className="flex items-start gap-3 text-[14.5px] text-[#555] leading-[1.65]"
+                  className="text-[13px] sm:text-[14px] text-[#555] leading-[1.6]"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#6B6B59] flex-shrink-0 mt-[7px]" />
                   {item}
                 </li>
               ))}
             </ul>
-          </section>
+          </div>
+        </div>
 
-          {/* ── Design Goal + Outcome ── */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-11">
-            <div className="bg-white border border-[#6B6B59]/[0.13] rounded-2xl p-6">
-              <p className="text-[10.5px] font-semibold tracking-[0.1em] uppercase text-[#9A9A82] mb-2.5">
-                Design Goal
-              </p>
-              <p className="text-[14px] text-[#555] leading-[1.72]">
-                {currentProject.designGoal}
-              </p>
-            </div>
-            <div className="bg-white border border-[#6B6B59]/[0.13] rounded-2xl p-6">
-              <p className="text-[10.5px] font-semibold tracking-[0.1em] uppercase text-[#9A9A82] mb-2.5">
-                Outcome
-              </p>
-              <p className="text-[14px] text-[#555] leading-[1.72]">
-                {currentProject.outcome}
-              </p>
-            </div>
+        {/* ━━━ DESIGN GOAL + OUTCOME — dark band ━━━ */}
+        <div className="bg-[#0F0E0E] rounded-2xl sm:rounded-[24px] p-6 sm:p-8 lg:p-10 mb-14 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
+          <div>
+            <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[#6B6B59] mb-3">
+              Design Goal
+            </p>
+            <p className="text-[14px] sm:text-[15px] text-white/70 leading-[1.72]">
+              {currentProject.designGoal}
+            </p>
+          </div>
+          <div>
+            <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[#6B6B59] mb-3">
+              Outcome
+            </p>
+            <p className="text-[14px] sm:text-[15px] text-white/70 leading-[1.72]">
+              {currentProject.outcome}
+            </p>
+          </div>
+        </div>
+
+        {/* ━━━ KEY SOLUTIONS + GENERATING IDEAS ━━━ */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 mb-14">
+          {/* Solutions list */}
+          <div>
+            <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] mb-4">
+              Key Solution — Some prioritised features
+            </p>
+            <ol className="flex flex-col gap-2 list-none">
+              {currentProject.keySolutions.map((s, idx) => (
+                <li
+                  key={idx}
+                  className="flex items-start gap-2.5 text-[14px] text-[#555] leading-[1.65]"
+                >
+                  <span className="text-[#9A9A82] flex-shrink-0 font-medium tabular-nums mt-px">
+                    {idx + 1}.
+                  </span>
+                  {s}
+                </li>
+              ))}
+            </ol>
           </div>
 
-          {/* ── Key Solutions ── */}
-          <section className="mb-12">
-            <div className="flex items-center gap-3 mb-4 section-rule">
-              <span className="text-[10.5px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] whitespace-nowrap">
-                Key Solutions
-              </span>
+          {/* Generating ideas */}
+          {currentProject.generatingIdeas && (
+            <div>
+              <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] mb-4">
+                Generating ideas from findings…
+              </p>
+              <p className="text-[14px] text-[#555] leading-[1.72]">
+                {currentProject.generatingIdeas}
+              </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {currentProject.keySolutions.map((solution, idx) => (
+          )}
+        </div>
+
+        {/* ━━━ INFORMATION ARCHITECTURE ━━━ */}
+        {currentProject.infoArchitecture && (
+          <div className="mb-14">
+            <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] mb-4">
+              Information Architecture
+            </p>
+            <p className="text-[14px] text-[#555] leading-[1.72] mb-6 max-w-[600px]">
+              {currentProject.infoArchitecture.description}
+            </p>
+            {currentProject.infoArchitecture.image && (
+              <div className="w-full border border-[#6B6B59]/[0.12] rounded-xl overflow-hidden">
+                <img
+                  src={currentProject.infoArchitecture.image}
+                  alt="Information architecture diagram"
+                  className="w-full h-auto"
+                />
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ━━━ VISUAL IDENTITY & MOCKUPS ━━━ */}
+        {currentProject.mockups?.length > 0 && (
+          <div className="mb-14">
+            <h2 className="text-[20px] sm:text-[24px] font-bold text-[#0F0E0E] tracking-[-0.015em] text-center mb-8">
+              Visual Identity &amp; Mockups
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {currentProject.mockups.map((img, idx) => (
                 <div
                   key={idx}
-                  className="bg-white border border-[#6B6B59]/[0.13] rounded-xl px-5 py-3.5 text-[13.5px] text-[#6B6B59] font-medium leading-snug before:content-['→_'] before:text-[#9A9A82]"
+                  className="w-full bg-[#F5F5F0] rounded-xl sm:rounded-2xl overflow-hidden border border-[#6B6B59]/[0.1]"
                 >
-                  {solution}
+                  <img
+                    src={img}
+                    alt={`Mockup ${idx + 1}`}
+                    className="w-full h-auto object-cover"
+                  />
                 </div>
               ))}
             </div>
-          </section>
+          </div>
+        )}
 
-          {/* ── Navigation ── */}
-          <div className="flex items-center justify-between gap-4 border-t border-[#6B6B59]/[0.13] pt-7">
-            <button
-              onClick={handlePrev}
-              disabled={!prevProject && currentIndex === 0}
-              className="inline-flex items-center gap-2 text-[13px] font-medium text-[#6B6B59] border border-[#6B6B59]/30 rounded-full px-[18px] py-2 hover:bg-[#6B6B59]/[0.06] hover:border-[#6B6B59]/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-transparent"
-            >
-              <ArrowLeft />
-              Previous
-            </button>
+        {/* ━━━ KEY INSIGHTS & GROWTH ━━━ */}
+        {currentProject.keyInsights && (
+          <div className="mb-14">
+            <h2 className="text-[20px] sm:text-[24px] font-bold text-[#0F0E0E] tracking-[-0.015em] mb-4">
+              Key Insights &amp; Growth
+            </h2>
+            <p className="text-[14px] sm:text-[15px] text-[#808080] leading-[1.72] max-w-[680px]">
+              {currentProject.keyInsights}
+            </p>
+          </div>
+        )}
 
-            <Link
-              to="/design"
-              className="text-[11.5px] font-semibold tracking-[0.1em] uppercase text-[#9A9A82] hover:text-[#6B6B59] transition-colors no-underline"
-            >
-              All Projects
-            </Link>
-
+        {/* ━━━ NEXT PROJECT ━━━ */}
+        {nextProject && (
+          <div className="w-full border-t border-[#6B6B59]/[0.13] pt-10 mb-14 text-center">
             <button
               onClick={handleNext}
-              disabled={!nextProject && currentIndex === projects.length - 1}
-              className="inline-flex items-center gap-2 text-[13px] font-medium text-[#6B6B59] border border-[#6B6B59]/30 rounded-full px-[18px] py-2 hover:bg-[#6B6B59]/[0.06] hover:border-[#6B6B59]/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-transparent"
+              className="group inline-flex flex-col items-center gap-2 cursor-pointer bg-transparent border-none"
             >
-              Next
-              <ArrowRight />
+              <span className="text-[20px] sm:text-[24px] font-bold text-[#0F0E0E] tracking-[-0.015em] flex items-center gap-2 group-hover:text-[#6B6B59] transition-colors">
+                Next Project
+                <TbArrowUpRight
+                  size={22}
+                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                />
+              </span>
             </button>
           </div>
+        )}
+
+        {/* ━━━ TOOLS I WORKED WITH ━━━ */}
+        {currentProject.technologies?.length > 0 && (
+          <div className="mb-16">
+            <h2 className="text-[18px] sm:text-[22px] font-bold text-[#0F0E0E] tracking-[-0.01em] text-center mb-8">
+              Some Tools I Worked With
+            </h2>
+            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 lg:gap-12">
+              {currentProject.technologies.map((tech) => (
+                <div
+                  key={tech}
+                  className="flex items-center gap-2 text-[#313130]"
+                >
+                  <span className="text-[28px] sm:text-[32px] flex items-center">
+                    {TOOL_ICONS[tech] ?? null}
+                  </span>
+                  <span className="text-[14px] sm:text-[15px] font-semibold text-[#0F0E0E]">
+                    {tech}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ━━━ PREV / ALL / NEXT NAVIGATION ━━━ */}
+        <div className="flex items-center justify-between gap-4 border-t border-[#6B6B59]/[0.13] pt-7">
+          <button
+            onClick={handlePrev}
+            disabled={!prevProject && currentIndex === 0}
+            className="inline-flex items-center gap-2 text-[13px] font-medium text-[#6B6B59] border border-[#6B6B59]/30 rounded-full px-4 py-2 hover:bg-[#6B6B59]/[0.06] hover:border-[#6B6B59]/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-transparent"
+          >
+            <TbArrowLeft size={14} />
+            <span className="hidden sm:inline">Previous</span>
+          </button>
+
+          <Link
+            to="/work"
+            className="text-[11.5px] font-semibold tracking-[0.1em] uppercase text-[#9A9A82] hover:text-[#6B6B59] transition-colors no-underline"
+          >
+            All Projects
+          </Link>
+
+          <button
+            onClick={handleNext}
+            disabled={!nextProject && currentIndex === projects.length - 1}
+            className="inline-flex items-center gap-2 text-[13px] font-medium text-[#6B6B59] border border-[#6B6B59]/30 rounded-full px-4 py-2 hover:bg-[#6B6B59]/[0.06] hover:border-[#6B6B59]/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-transparent"
+          >
+            <span className="hidden sm:inline">Next</span>
+            <TbArrowNarrowRight size={14} />
+          </button>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 };
 

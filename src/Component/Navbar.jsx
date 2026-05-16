@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import UserCard from "./UserCard";
 import { VscDash } from "react-icons/vsc";
 import { LuText, LuX } from "react-icons/lu";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigateTo = useNavigate();
-
-  /* ── Scroll listener ── */
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   /* ── Close mobile menu on route change ── */
   useEffect(() => {
@@ -126,11 +118,12 @@ const Navbar = () => {
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
               className="
-                font-dm text-white bg-[#313130]/60 backdrop-blur-2xl
-                rounded-full px-6 py-3
-                text-[13.5px] font-medium
+                font-dm text-white bg-dark shadow-md backdrop-blur-2xl
+                rounded-full px-6  pl-[26px]  py-4 pb-[18px]
+                text-[14px] font-medium
+                tracking-wide
                 scale-95 hover:scale-105
-                shadow-xs hover:shadow-md
+                 hover:shadow-md
                 transition-all duration-150 cursor-pointer
               "
             >
@@ -175,19 +168,16 @@ const Navbar = () => {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 + idx * 0.1, duration: 0.3 }}
+                      className="flex"
                     >
                       <Link
                         to={item.path}
                         onClick={() => setIsOpen(false)}
                         className={`
-                          font-dm text-[14px] font-medium tracking-[0.01em]
+                          font-dm text-[16px] w-full  font-medium tracking-[0.01em]
                           px-3.5 py-2.5 rounded-[10px] no-underline
                           transition-all duration-200
-                          ${
-                            isActive
-                              ? "text-[#6B6B59] bg-[#6B6B59]/[0.08]"
-                              : "text-[#808080] hover:text-[#6B6B59] hover:bg-[#6B6B59]/[0.05]"
-                          }
+                          ${isActive ? "text-dark italic font-bold" : "text-gray-500 italic "}
                         `}
                       >
                         {item.name}
@@ -203,11 +193,6 @@ const Navbar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.3 }}
                 >
-                  <div className="font-dm flex items-center gap-2 text-[12px] text-[#808080]">
-                    <span className="pulse-dot inline-block w-1.5 h-1.5 rounded-full bg-[#6B6B59] flex-shrink-0" />
-                    Available for work
-                  </div>
-
                   <div className="flex flex-col gap-3 mt-2">
                     {/* Let's Talk */}
                     <motion.button
@@ -218,6 +203,9 @@ const Navbar = () => {
                       }}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
+                      initial={{ opacity: 0, y: -1, scale: 0 }}
+                      animate={{ opacity: 1, y: 1, scale: 1 }}
+                      transition={{ delay: 0.1, duration: 0.2 }}
                       className="
                         w-full text-center px-8 py-4
                         bg-[#0F0E0E] text-[#f8f8f5]
@@ -227,7 +215,7 @@ const Navbar = () => {
                         cursor-pointer border-none
                       "
                     >
-                      Let's Talk
+                      Drop me a massage
                     </motion.button>
 
                     {/* Download CV */}

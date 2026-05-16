@@ -6,34 +6,41 @@ const Hero = () => {
   return (
     <section
       aria-label="Hero"
-      className="w-full max-w-[1200px] mx-auto px-5 sm:px-6 md:px-10 xl:px-16 pt-6 sm:pt-8 lg:pt-10 pb-6 sm:pb-7 lg:pb-8 mt-16 flex flex-col gap-5 sm:gap-6 lg:gap-8"
+      className="w-full max-w-[1200px] mx-auto px-5 sm:px-6 md:px-10 xl:px-16 pt-1 sm:pt-8 lg:pt-10 pb-6 sm:pb-7 lg:pb-8 mt-16 flex flex-col gap-5 sm:gap-6 lg:gap-8"
     >
       {/* ── Top ── */}
-      <div className="flex flex-col-reverse gap-4 sm:gap-5 md:flex-row md:items-end md:justify-between md:gap-10 lg:gap-14 xl:gap-20">
+      <div className="flex flex-col-reverse gap-1 sm:gap-5 md:flex-row md:items-end md:justify-between md:gap-10 lg:gap-14 xl:gap-20">
         {/* Left — headline + description */}
-        <div className="flex flex-col gap-3 sm:gap-4 flex-1 min-w-0">
+        <div className="flex flex-col gap-3 sm:gap-4 flex-1 ">
           <h1
             className="
               font-semibold font-display text-[#0F0E0E]
               md:text-[48px]
-              text-[40px]
+              sm:text-[40px]
+              text-[32px]
+              tracking-wide
               font-semibold
               md:leading-[64px] 
-              leading-[48px]
-              text-grey max-w-[353px] md:max-w-[640px]
+              leading-[43.2px]
+              
+              text-grey w-full  md:max-w-[640px]
             "
           >
             Architecting{" "}
             <span className="text-[#808080]">
-              usable products from pixel to pipeline.
+              Usable Products From Pixel To <br className="sm:hidden" />
+              Pipeline.
             </span>
           </h1>
 
           <p
             className="
               text-[#313130] max-w-[560px]
-              text-[16px] leading-[1.72]
+              text-[14px]
+            sm:text-[16px]
+               leading-[22px]
               xl:leading-[1.75]
+              tracking-[0.28px]
             "
           >
             I am a hybrid creator who bridges the gap between vision and
@@ -62,7 +69,7 @@ const Hero = () => {
                 
               "
             >
-              Hi, I'm{" "}
+              Hi there, I'm{" "}
               <span className="font-medium text-[#878789] underline-offset-4 decoration-[0.1em] decoration-gray-500/40 underline">
                 Muktar
               </span>
@@ -80,11 +87,11 @@ const Hero = () => {
               "
             >
               A{" "}
-              <span className="font-[600] text-[#878789] underline-offset-4 decoration-[0.1em] decoration-gray-500/40 underline">
+              <span className="font-[600] text-[#878789] ">
                 Software Engineer
               </span>{" "}
               and{" "}
-              <span className="font-medium text-[#878789] underline-offset-4 decoration-[0.1em] decoration-gray-500/40 underline">
+              <span className="font-medium text-[#878789]   ">
                 UI/UX Designer
               </span>
               .
@@ -94,7 +101,7 @@ const Hero = () => {
                 src={images.underline}
                 alt=""
                 aria-hidden="true"
-                className="block w-full mt-[2px]"
+                className="block w-40 h-5 pl-3 -translate-y-1"
               />
             )}
           </div>
@@ -108,25 +115,31 @@ const Hero = () => {
       <div
         className="
           flex items-center justify-between w-full font-semibold text-gray-800
-         text-[16px] 
+           text-[14px]
+            sm:text-[16px]
         "
       >
         <p
           className="
           flex items-center gap-0.5
-          text-[16px]
+          text-[14px]
+          sm:text-[16px]
           leading-[32px]
-          font-[600] "
+          font-[500] 
+          sm:font-semibold"
         >
-          Selected Projects <LuChevronRight className="text-lg translate-y-" />
+          Selected Projects{" "}
+          <LuChevronRight size={20} className=" translate-y-" />
         </p>
         <p className="flex items-center gap-0.5">
           <span
             className="
             text-[#878789] 
-            text-[16px]
+            text-[14px]
+            sm:text-[16px]
             leading-[32px]
-            font-[600]"
+            font-[500] 
+            sm:font-semibold"
           >
             From 2025
           </span>
@@ -134,9 +147,11 @@ const Hero = () => {
           <span
             className="
             text-gray-800
-            text-[16px]
+           text-[14px]
+            sm:text-[16px]
             leading-[32px]
-            font-[600] "
+            font-[500] 
+            sm:font-semibold "
           >
             Present
           </span>

@@ -1,5 +1,5 @@
 import React from "react";
-import Hero from "../Component/hero";
+import Hero from "../Component/Hero";
 import WorkDetailCard from "../Component/WorkDetailCard";
 import GoalAndOutcome from "../Component/goalAndOutcome";
 

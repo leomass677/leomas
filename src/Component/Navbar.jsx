@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+const _motion = motion;
 import UserCard from "./UserCard";
 import { VscDash } from "react-icons/vsc";
 import { LuText, LuX } from "react-icons/lu";
@@ -22,6 +23,17 @@ const Navbar = () => {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
+
+  /* ── Scroll to top helper function ── */
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  /* ── Handle navigation with scroll to top ── */
+  const handleNavigation = (path) => {
+    navigateTo(path);
+    scrollToTop();
+  };
 
   const navigation = [
     { name: "Work", path: "/work" },
@@ -56,7 +68,7 @@ const Navbar = () => {
             whileTap={{ scale: 0.98 }}
             className="no-underline flex-shrink-0"
           >
-            <Link to="/" className="no-underline">
+            <Link to="/" onClick={scrollToTop} className="no-underline">
               <UserCard />
             </Link>
           </motion.div>
@@ -64,7 +76,7 @@ const Navbar = () => {
           {/* Desktop: nav links + CTA */}
           <div className="hidden md:flex items-center gap-6">
             {/* Nav links with scroll-flip animation */}
-            <div className="flex items-center  relative">
+            <div className="flex items-center relative">
               {/* Vertical divider between links */}
               <VscDash className="absolute left-1/2 -translate-x-1/2 rotate-90 text-3xl text-[#9A9A82] pointer-events-none" />
 
@@ -78,9 +90,9 @@ const Navbar = () => {
                     transition={{ delay: idx * 0.1, duration: 0.3 }}
                     className="flex gap-5 items-center"
                   >
-                    <Link
-                      to={item.path}
-                      className="relative px-[16px]  py-1.5 no-underline font-dm"
+                    <div
+                      onClick={() => handleNavigation(item.path)}
+                      className="relative px-[16px] py-1.5 no-underline font-dm cursor-pointer"
                     >
                       {/* Flip container: normal → bold on hover / active */}
                       <span className="flex flex-col h-6 overflow-hidden group">
@@ -105,7 +117,7 @@ const Navbar = () => {
                           {item.name}
                         </p>
                       </span>
-                    </Link>
+                    </div>
                   </motion.div>
                 );
               })}
@@ -113,17 +125,17 @@ const Navbar = () => {
 
             {/* Let's Talk CTA */}
             <motion.button
-              onClick={() => navigateTo("/contact")}
+              onClick={() => handleNavigation("/contact")}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
               className="
                 font-dm text-white bg-dark shadow-md backdrop-blur-2xl
-                rounded-full px-6  pl-[26px]  py-4 pb-[18px]
+                rounded-full px-6 pl-[26px] py-4 pb-[18px]
                 text-[14px] font-medium
                 tracking-wide
                 scale-95 hover:scale-105
-                 hover:shadow-md
+                hover:shadow-md
                 transition-all duration-150 cursor-pointer
               "
             >
@@ -170,18 +182,20 @@ const Navbar = () => {
                       transition={{ delay: 0.1 + idx * 0.1, duration: 0.3 }}
                       className="flex"
                     >
-                      <Link
-                        to={item.path}
-                        onClick={() => setIsOpen(false)}
+                      <div
+                        onClick={() => {
+                          handleNavigation(item.path);
+                          setIsOpen(false);
+                        }}
                         className={`
-                          font-dm text-[16px] w-full  font-medium tracking-[0.01em]
+                          font-dm text-[16px] w-full font-medium tracking-[0.01em]
                           px-3.5 py-2.5 rounded-[10px] no-underline
-                          transition-all duration-200
-                          ${isActive ? "text-dark italic font-bold" : "text-gray-500 italic "}
+                          transition-all duration-200 cursor-pointer
+                          ${isActive ? "text-dark italic font-bold" : "text-gray-500 italic"}
                         `}
                       >
                         {item.name}
-                      </Link>
+                      </div>
                     </motion.div>
                   );
                 })}
@@ -197,9 +211,8 @@ const Navbar = () => {
                     {/* Let's Talk */}
                     <motion.button
                       onClick={() => {
-                        navigateTo("/contact");
+                        handleNavigation("/contact");
                         setIsOpen(false);
-                        window.scrollTo({ top: 0, behavior: "smooth" });
                       }}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}

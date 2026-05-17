@@ -76,7 +76,7 @@ const workDetails = {
       path: "crowdsourced-price-intelligence",
       title: "Crowdsourced Price Intelligence",
       description:
-        "Crowdsourced, community-powered data to help you shop smarter and avoid overpaying.",
+        "Crowdsourced, community-powered data to help you shop smarter and avoid overpaying. Real-time price tracking and insights for local markets.",
       year: 2025,
       header: {
         prefix: "Designing",
@@ -138,6 +138,75 @@ const workDetails = {
           "Mastered the art of designing for community trust, ensuring that a data-heavy platform feels approachable and simple for the end-user.",
       },
     },
+    {
+      id: 1,
+      slug: "ai-resume-cover-letter-builder",
+      path: "ai-resume-builder",
+      title: "AI Resume and Cover Letter Builder",
+      description:
+        "Create tailored resumes and compelling cover letters in minutes. Powered by AI to highlight your strengths and match job descriptions perfectly.",
+      year: 2025,
+      header: {
+        prefix: "Designing",
+        highlight: "AI Resume and Cover Letter Builder",
+      },
+      overview:
+        "This project is a modern AI-powered resume and cover letter platform designed to simplify and enhance the job application process. The interface focuses on clarity, efficiency, and user guidance, helping users create professional documents with minimal effort.",
+      details: [
+        { label: "Designed with", value: "Figma" },
+        { label: "Platform", value: "Web" },
+        { label: "Role", value: "Designer" },
+        { label: "Year", value: 2025 },
+      ],
+      cardImage: "",
+      cardImageAlt: "AI Resume Builder interface preview",
+      backgroundStory: [
+        "This project was inspired by the difficulties many people face when creating resumes and cover letters. Most users, especially students and entry-level job seekers, often struggle with what to write, how to structure their content, and how to make their applications stand out. Existing tools can feel complicated or outdated, which makes the process even more stressful.",
+        "I designed a modern AI-powered platform that guides users step-by-step, helping them quickly create and improve professional resumes and cover letters. It simplifies the process with smart suggestions, clear structure, and an easy-to-use interface, making the experience faster, more efficient, and less overwhelming.",
+        "The design emphasizes clarity and ease of use, with a clean layout and smooth navigation, allowing users to quickly create and manage their resumes and cover letters with confidence.",
+      ],
+      contribution: [
+        "User research",
+        "Design leadership",
+        "User flow",
+        "Visual design",
+        "Design systems",
+        "Interactive prototyping",
+        "User testing",
+      ],
+      designGoal:
+        "To replace the stress of document creation with a guided, frictionless experience that balances powerful AI automation with a clean, user-centric interface.",
+      outcome:
+        "A seamless end-to-end platform that enables users to generate 'recruiter-ready' resumes and cover letters in minutes, eliminating writer's block and formatting errors.",
+      keySolutions: [
+        "AI-Powered Builder",
+        "Smart Content Refinement",
+        "Unified Document Dashboard",
+        "Template Selection System",
+      ],
+      ideaGeneration: {
+        title: "Generating ideas from findings...",
+        description:
+          "Translating user pain points into a structured AI workflow that prioritizes speed, clarity, and professional quality.",
+      },
+      informationArchitecture: {
+        title: "Information Architecture",
+        description:
+          "Organizing the platform into a logical flow from Onboarding and Data Input to AI Generation and Final Export to ensure a fast, intuitive navigation experience.",
+        image: "",
+        imageAlt: "Information architecture diagram",
+      },
+      visualIdentity: {
+        title: "Visual Identity & Mockups",
+        image: "",
+        imageAlt: "Design system and UI mockups gallery",
+      },
+      insights: {
+        title: "Key Insights & Growth",
+        description:
+          "Mastered the balance between AI automation and human agency, transforming a daunting document-creation process into a seamless, high-confidence user journey.",
+      },
+    },
   ],
 
   missionAndGoals: [
@@ -175,11 +244,11 @@ const workDetails = {
   footer: {
     // Download Options
 
-    header: "Let’s build something that makes an impact 🧱",
+    header: "Let’s build something that makes an impact",
     developer: "Built by Muktar Adamu",
     location: "Abuja, Nigeria",
     timezone: "GMT+1",
-    email: "muktaradamu677@example.com",
+    email: "muktaradamu677@gmail.com",
     emailIcon: "MdMarkEmailUnread",
     description:
       "I’m currently available for new opportunities and freelance projects . Let’s talk if you are looking for digital product designer.",
@@ -220,7 +289,7 @@ const workDetails = {
       };
       return now.toLocaleTimeString("en-US", options);
     },
-    text: "© 2025 Muktar Adamu. All rights reserved.",
+    text: "© 2026 Muktar Adamu. All rights reserved.",
     downloads: {
       cv: {
         title: "Download CV",

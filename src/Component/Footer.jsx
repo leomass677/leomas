@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+const _motion = motion;
 import workdetails from "../data/workdetails";
 import IconMapper from "../Component/IconMapper";
 import { MdArrowOutward, MdFileDownload } from "react-icons/md";
 
 const Footer = () => {
+  const navigate = useNavigate();
   const footer = workdetails.footer;
   const [time, setTime] = useState("");
 
@@ -15,6 +18,18 @@ const Footer = () => {
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, [footer]);
+
+  /* ── Scroll to top helper function ── */
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  /* ── Handle navigation with scroll to top ── */
+  const handleNavigation = (path) => {
+    // Use window.location for external navigation or if you have routing
+    navigate(path);
+    scrollToTop();
+  };
 
   return (
     <footer className="w-full mt-24 lg:mt-32 bg-[#0F0E0E] text-white">
@@ -30,16 +45,16 @@ const Footer = () => {
           {/* Headline */}
           <h2
             className="
-              font-bold tracking-[-0.025em] text-white text-wrap-balance
-              text-[28px] leading-[1.15]
-              sm:text-[36px] sm:leading-[1.12]
-              md:text-[42px] md:leading-[1.1]
-              lg:text-[48px] lg:leading-[1.08]
+              font-bold font-sans text-white text-wrap-balance
+              text-[28px] leading-[1.4] tracking-normal
+              sm:text-[36px] sm:leading-[1.3]
+              md:text-[42px] md:leading-[1.2]
+              lg:text-[48px] lg:leading-[1.2]
               max-w-[720px]
             "
           >
             {footer.header.replace("🧱", "").trim()}{" "}
-            <span className="text-[#9A9A82]">🧱</span>
+            <span className="text-[#9A9A82]"></span>
           </h2>
 
           {/* Two columns */}
@@ -62,11 +77,16 @@ const Footer = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="
-                  flex border-white border w-fit justify-center px-12 pr-14 hover:bg-white hover:text-dark py-6 rounded-full items-center gap-2 text-[16px] font-medium text-white/60 hover:scale-105 transition-all uppercase text-shadow-2xs -tracking-tighter text-shadow-gray-50 ease-in-out  duration-200
+                  flex border-white border w-fit justify-center px-12 pr-14 hover:bg-white hover:text-dark py-6 rounded-full items-center gap-2 text-[16px] font-medium text-white/60 hover:scale-105 transition-all uppercase text-shadow-2xs -tracking-tighter text-shadow-gray-50 ease-in-out duration-200
                   no-underline
+                  group
                 "
               >
-                <MdFileDownload size={24} />
+                <MdFileDownload
+                  size={24}
+                  className="text-white group-hover:animate-bounce
+                  group-hover:translate-y-1 transition-all ease-out duration-150 group-hover:text-dark"
+                />
                 {footer.downloads.cv.title}
               </motion.a>
             </motion.div>
@@ -174,7 +194,7 @@ const Footer = () => {
             aria-label="Footer navigation"
           >
             {[
-              { label: "Work", to: "/design" },
+              { label: "Work", to: "/work" },
               { label: "About", to: "/about" },
               { label: "Contact", to: "/contact" },
             ].map((link) => (
@@ -183,12 +203,12 @@ const Footer = () => {
                 whileHover={{ y: -1 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Link
-                  to={link.to}
-                  className="text-[12px] font-medium text-white/35 hover:text-white/70 transition-colors duration-200 no-underline"
+                <div
+                  onClick={() => handleNavigation(link.to)}
+                  className="text-[12px] font-medium text-white/35 hover:text-white/70 transition-colors duration-200 no-underline cursor-pointer"
                 >
                   {link.label}
-                </Link>
+                </div>
               </motion.div>
             ))}
           </nav>

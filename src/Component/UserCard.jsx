@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
+const _motion = motion;
 import images from "../data/images";
 
 const UserCard = () => {

@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import workDetails from "../data/workdetails";
+import { MdArrowOutward } from "react-icons/md";
+
 import {
   TbArrowLeft,
   TbArrowUpRight,
@@ -52,38 +54,32 @@ const DesignDetails = () => {
   }
 
   const currentIndex = projects.findIndex((d) => d?.path === projectPath);
-  const prevProject = projects[currentIndex - 1];
   const nextProject = projects[currentIndex + 1];
 
-  const handlePrev = () =>
-    navigate(
-      `/work/${prevProject ? prevProject.path : projects[projects.length - 1].path}`,
-    );
-  const handleNext = () =>
+  const handleNext = () => {
     navigate(`/work/${nextProject ? nextProject.path : projects[0].path}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <main className="min-h-screen bg-[#FCFCFD] pt-24 pb-20">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16">
-        {/* ━━━ BACK LINK ━━━ */}
-        <Link
-          to="/work"
-          className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.1em] uppercase text-[#808080] hover:text-[#6B6B59] transition-colors mb-8 no-underline group"
-        >
-          <TbArrowLeft
-            size={14}
-            className="group-hover:-translate-x-0.5 transition-transform"
-          />
-          Back to work
-        </Link>
-
         {/* ━━━ HEADER ━━━ */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-12 mb-8 lg:mb-10">
           {/* Left: category + title + description */}
           <div className="flex flex-col gap-3">
-            <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82]">
-              Designing
-            </p>
+            <div className="space-y-2">
+              <MdArrowOutward
+                size={38}
+                className="scale-x-[-1] -translate-x-2"
+              />
+              <p
+                className=" font-semibold text-[#878789] tracking-[-0.02em] leading-[1.12]
+              text-[28px] sm:text-[34px] md:text-[38px] lg:text-[42px]"
+              >
+                Designing
+              </p>
+            </div>
             <h1
               className="
                 font-bold text-[#0F0E0E] tracking-[-0.02em] leading-[1.12]
@@ -92,19 +88,19 @@ const DesignDetails = () => {
             >
               {currentProject.title}
             </h1>
-            <p className="text-[14px] sm:text-[15px] text-[#808080] leading-[1.7] max-w-[560px]">
-              {currentProject.description}
+            <p className="text-[14px] sm:text-[16px] text-[#808080] leading-[1.7] max-w-[680px] ">
+              {currentProject.overview}
             </p>
           </div>
 
           {/* Right: meta grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-x-8 gap-y-4 lg:min-w-[220px] lg:pt-2">
+          <div className="grid grid-cols-2 lg:self-end lg:pb-4 sm:grid-cols-3 gap-8 items-center lg:grid-cols-2  lg:min-w-[220px] h-fit  lg:pt-2">
             {currentProject.details.map((detail, idx) => (
               <div key={idx} className="flex flex-col gap-0.5">
                 <p className="text-[10px] font-semibold tracking-[0.1em] uppercase text-[#9A9A82]">
                   {detail.label}
                 </p>
-                <p className="text-[14px] font-semibold text-[#0F0E0E]">
+                <p className="text-[16px] italic font-semibold text-dark">
                   {detail.value}
                 </p>
               </div>
@@ -118,6 +114,8 @@ const DesignDetails = () => {
             <img
               src={currentProject.cardImage}
               alt={currentProject.title}
+              loading="lazy"
+              decoding="async"
               className="w-full h-auto object-cover"
             />
           </div>
@@ -149,7 +147,7 @@ const DesignDetails = () => {
               {currentProject.contribution.map((item, idx) => (
                 <li
                   key={idx}
-                  className="text-[13px] sm:text-[14px] text-[#555] leading-[1.6]"
+                  className="text-[13px] flex items-center gap-1 sm:text-[14px] text-[#555] leading-[1.6]"
                 >
                   {item}
                 </li>
@@ -159,9 +157,9 @@ const DesignDetails = () => {
         </div>
 
         {/* ━━━ DESIGN GOAL + OUTCOME — dark band ━━━ */}
-        <div className="bg-[#0F0E0E] rounded-2xl sm:rounded-[24px] p-6 sm:p-8 lg:p-10 mb-14 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
+        <div className="bg-[#0F0E0E] rounded-md shadow-2xs p-6 sm:p-8 lg:p-10 mb-14 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
           <div>
-            <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[#6B6B59] mb-3">
+            <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-gray-50/60 mb-3">
               Design Goal
             </p>
             <p className="text-[14px] sm:text-[15px] text-white/70 leading-[1.72]">
@@ -169,7 +167,7 @@ const DesignDetails = () => {
             </p>
           </div>
           <div>
-            <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[#6B6B59] mb-3">
+            <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-gray-50/60 mb-3">
               Outcome
             </p>
             <p className="text-[14px] sm:text-[15px] text-white/70 leading-[1.72]">
@@ -227,6 +225,8 @@ const DesignDetails = () => {
                 <img
                   src={currentProject.infoArchitecture.image}
                   alt="Information architecture diagram"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto"
                 />
               </div>
@@ -249,6 +249,8 @@ const DesignDetails = () => {
                   <img
                     src={img}
                     alt={`Mockup ${idx + 1}`}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-auto object-cover"
                   />
                 </div>
@@ -310,34 +312,6 @@ const DesignDetails = () => {
             </div>
           </div>
         )}
-
-        {/* ━━━ PREV / ALL / NEXT NAVIGATION ━━━ */}
-        <div className="flex items-center justify-between gap-4 border-t border-[#6B6B59]/[0.13] pt-7">
-          <button
-            onClick={handlePrev}
-            disabled={!prevProject && currentIndex === 0}
-            className="inline-flex items-center gap-2 text-[13px] font-medium text-[#6B6B59] border border-[#6B6B59]/30 rounded-full px-4 py-2 hover:bg-[#6B6B59]/[0.06] hover:border-[#6B6B59]/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-transparent"
-          >
-            <TbArrowLeft size={14} />
-            <span className="hidden sm:inline">Previous</span>
-          </button>
-
-          <Link
-            to="/work"
-            className="text-[11.5px] font-semibold tracking-[0.1em] uppercase text-[#9A9A82] hover:text-[#6B6B59] transition-colors no-underline"
-          >
-            All Projects
-          </Link>
-
-          <button
-            onClick={handleNext}
-            disabled={!nextProject && currentIndex === projects.length - 1}
-            className="inline-flex items-center gap-2 text-[13px] font-medium text-[#6B6B59] border border-[#6B6B59]/30 rounded-full px-4 py-2 hover:bg-[#6B6B59]/[0.06] hover:border-[#6B6B59]/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-transparent"
-          >
-            <span className="hidden sm:inline">Next</span>
-            <TbArrowNarrowRight size={14} />
-          </button>
-        </div>
       </div>
     </main>
   );

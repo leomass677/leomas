@@ -25,7 +25,7 @@ const TOOL_ICONS = {
   JavaScript: <SiJavascript className="text-[#F7DF1E]" />,
   Tailwind: <SiTailwindcss className="text-[#38BDF8]" />,
   TailwindCSS: <SiTailwindcss className="text-[#38BDF8]" />,
-  Java: <FaJava className="text-[#ED8B00]" />,
+  Java: <FaJava className="text-[rgb(237,139,0)]" />,
 };
 
 const DesignDetails = () => {
@@ -62,17 +62,14 @@ const DesignDetails = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#FCFCFD] pt-24 pb-20">
+    <main className="min-h-screen bg-[#FCFCFD] mt-14 sm:mt-14 md:mt-16 lg:mt-20 pb-20">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16">
         {/* ━━━ HEADER ━━━ */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-12 mb-8 lg:mb-10">
           {/* Left: category + title + description */}
           <div className="flex flex-col gap-3">
             <div className="space-y-2">
-              <MdArrowOutward
-                size={38}
-                className="scale-x-[-1] -translate-x-2"
-              />
+              <MdArrowOutward className="scale-x-[-1] -translate-x-0.5 sm:-translate-x-1 lg:-translate-x-2 text-[24px] sm:text-[28px] lg:text-4xl" />
               <p
                 className=" font-semibold text-[#878789] tracking-[-0.02em] leading-[1.12]
               text-[28px] sm:text-[34px] md:text-[38px] lg:text-[42px]"
@@ -82,19 +79,27 @@ const DesignDetails = () => {
             </div>
             <h1
               className="
-                font-bold text-[#0F0E0E] tracking-[-0.02em] leading-[1.12]
-                text-[28px] sm:text-[34px] md:text-[38px] lg:text-[42px]
-              "
+              font-semibold font-display text-[#0F0E0E]
+              md:text-[48px]
+              sm:text-[40px]
+              text-[32px]
+              tracking-normal
+              font-semibold
+              md:leading-[64px] 
+              leading-[43.2px]
+              text-grey w-full
+            "
             >
-              {currentProject.title}
+              {currentProject.title.trim()}
             </h1>
+
             <p className="text-[14px] sm:text-[16px] text-[#808080] leading-[1.7] max-w-[680px] ">
               {currentProject.overview}
             </p>
           </div>
 
           {/* Right: meta grid */}
-          <div className="grid grid-cols-2 lg:self-end lg:pb-4 sm:grid-cols-3 gap-8 items-center lg:grid-cols-2  lg:min-w-[220px] h-fit  lg:pt-2">
+          <div className="grid grid-cols-1 lg:self-end lg:pb-4 sm:grid-cols-4 gap-8 items-center lg:grid-cols-2  lg:min-w-[220px] h-fit  lg:pt-2">
             {currentProject.details.map((detail, idx) => (
               <div key={idx} className="flex flex-col gap-0.5">
                 <p className="text-[10px] font-semibold tracking-[0.1em] uppercase text-[#9A9A82]">
@@ -110,19 +115,33 @@ const DesignDetails = () => {
 
         {/* ━━━ HERO IMAGE ━━━ */}
         {currentProject.cardImage && (
-          <div className="w-full bg-[#F0EFE8] rounded-2xl sm:rounded-[24px] overflow-hidden mb-14 sm:mb-16">
+          <div
+            className={`w-full overflow-hidden
+              liner
+              lg:rounded-[32px]
+              p-4 sm:p-6 lg:p-10 xl:p-12
+              flex items-center justify-center
+              transition-all duration-300 ease-out
+              rounded-tr-4xl rounded-bl-4xl
+              `}
+          >
             <img
               src={currentProject.cardImage}
               alt={currentProject.title}
               loading="lazy"
               decoding="async"
-              className="w-full h-auto object-cover"
+              className="
+                  w-full max-w-[852px] mx-auto block
+                  object-cover
+                  transition-transform duration-300 ease-out
+                  group-hover:scale-[1.02]
+                "
             />
           </div>
         )}
 
         {/* ━━━ BACKGROUND STORY ━━━ */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-8 lg:gap-16 mb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-8 lg:gap-16 mb-14 mt-10 sm:mt-14 md:mt-16 lg:mt-20">
           {/* Story text */}
           <div>
             <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] mb-4">
@@ -199,35 +218,52 @@ const DesignDetails = () => {
           </div>
 
           {/* Generating ideas */}
-          {currentProject.generatingIdeas && (
+          {currentProject.ideaGeneration && (
             <div>
               <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] mb-4">
-                Generating ideas from findings…
+                {currentProject.ideaGeneration.title}
               </p>
               <p className="text-[14px] text-[#555] leading-[1.72]">
-                {currentProject.generatingIdeas}
+                {currentProject.ideaGeneration.description}
               </p>
             </div>
           )}
         </div>
 
         {/* ━━━ INFORMATION ARCHITECTURE ━━━ */}
-        {currentProject.infoArchitecture && (
+        {currentProject.informationArchitecture && (
           <div className="mb-14">
             <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] mb-4">
-              Information Architecture
+              {currentProject?.informationArchitecture?.title}
             </p>
             <p className="text-[14px] text-[#555] leading-[1.72] mb-6 max-w-[600px]">
-              {currentProject.infoArchitecture.description}
+              {currentProject?.informationArchitecture?.description}
             </p>
-            {currentProject.infoArchitecture.image && (
-              <div className="w-full border border-[#6B6B59]/[0.12] rounded-xl overflow-hidden">
+            {currentProject?.informationArchitecture?.image && (
+              <div
+                className={`w-full overflow-hidden
+              liner
+              lg:rounded-[32px]
+              rounded-md
+              sm:rounded-lg
+              p-4 sm:p-6 lg:p-10 xl:p-12
+              flex items-center justify-center
+              transition-all duration-300 ease-out
+               md:rounded-tr-2xl md:rounded-bl-2sxl
+              lg:rounded-tr-4xl lg:rounded-bl-4xl
+              `}
+              >
                 <img
-                  src={currentProject.infoArchitecture.image}
-                  alt="Information architecture diagram"
+                  src={currentProject?.informationArchitecture?.image}
+                  alt={currentProject?.informationArchitecture?.imageAlt}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-auto"
+                  className="
+                  w-full max-w-[852px] mx-auto block
+                  object-cover
+                  transition-transform duration-300 ease-out
+                  group-hover:scale-[1.02]
+                "
                 />
               </div>
             )}
@@ -235,38 +271,52 @@ const DesignDetails = () => {
         )}
 
         {/* ━━━ VISUAL IDENTITY & MOCKUPS ━━━ */}
-        {currentProject.mockups?.length > 0 && (
+        {currentProject.visualIdentity && (
           <div className="mb-14">
             <h2 className="text-[20px] sm:text-[24px] font-bold text-[#0F0E0E] tracking-[-0.015em] text-center mb-8">
-              Visual Identity &amp; Mockups
+              {currentProject?.visualIdentity?.title}
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {currentProject.mockups.map((img, idx) => (
+            <div className="grid grid-cols-1 gap-4">
+              {currentProject?.visualIdentity.image && (
                 <div
-                  key={idx}
-                  className="w-full bg-[#F5F5F0] rounded-xl sm:rounded-2xl overflow-hidden border border-[#6B6B59]/[0.1]"
+                  className={`w-full overflow-hidden
+              liner
+              lg:rounded-[32px]
+              rounded-md
+              sm:rounded-lg
+              p-4 sm:p-6 lg:p-10 xl:p-12
+              flex items-center justify-center
+              transition-all duration-300 ease-out
+               md:rounded-tr-2xl md:rounded-bl-2sxl
+              lg:rounded-tr-4xl lg:rounded-bl-4xl
+              `}
                 >
                   <img
-                    src={img}
-                    alt={`Mockup ${idx + 1}`}
+                    src={currentProject?.visualIdentity.image}
+                    alt={currentProject?.visualIdentity.imageAlt}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-auto object-cover"
+                    className="
+                  w-full max-w-[852px] mx-auto block
+                  object-cover
+                  transition-transform duration-300 ease-out
+                  group-hover:scale-[1.02]
+                "
                   />
                 </div>
-              ))}
+              )}
             </div>
           </div>
         )}
 
         {/* ━━━ KEY INSIGHTS & GROWTH ━━━ */}
-        {currentProject.keyInsights && (
+        {currentProject.insights && (
           <div className="mb-14">
             <h2 className="text-[20px] sm:text-[24px] font-bold text-[#0F0E0E] tracking-[-0.015em] mb-4">
-              Key Insights &amp; Growth
+              {currentProject.insights.title}
             </h2>
             <p className="text-[14px] sm:text-[15px] text-[#808080] leading-[1.72] max-w-[680px]">
-              {currentProject.keyInsights}
+              {currentProject.insights.description}
             </p>
           </div>
         )}
@@ -278,40 +328,15 @@ const DesignDetails = () => {
               onClick={handleNext}
               className="group inline-flex flex-col items-center gap-2 cursor-pointer bg-transparent border-none"
             >
-              <span className="text-[20px] sm:text-[24px] font-bold text-[#0F0E0E] tracking-[-0.015em] flex items-center gap-2 group-hover:text-[#6B6B59] transition-colors">
+              <span className="text-[24px] sm:text-[28px] md:text-[32px] font-bold text-[#0F0E0E] tracking-[-0.015em] flex items-center gap-1 sm:gap-2 group-hover:text-[#6B6B59] transition-colors">
                 Next Project
-                <TbArrowUpRight
-                  size={22}
-                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-                />
+                <TbArrowUpRight className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-[28px] sm:text-[32px] md:text-[34px]" />
               </span>
             </button>
           </div>
         )}
 
         {/* ━━━ TOOLS I WORKED WITH ━━━ */}
-        {currentProject.technologies?.length > 0 && (
-          <div className="mb-16">
-            <h2 className="text-[18px] sm:text-[22px] font-bold text-[#0F0E0E] tracking-[-0.01em] text-center mb-8">
-              Some Tools I Worked With
-            </h2>
-            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 lg:gap-12">
-              {currentProject.technologies.map((tech) => (
-                <div
-                  key={tech}
-                  className="flex items-center gap-2 text-[#313130]"
-                >
-                  <span className="text-[28px] sm:text-[32px] flex items-center">
-                    {TOOL_ICONS[tech] ?? null}
-                  </span>
-                  <span className="text-[14px] sm:text-[15px] font-semibold text-[#0F0E0E]">
-                    {tech}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </main>
   );

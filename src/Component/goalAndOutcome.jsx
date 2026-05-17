@@ -17,11 +17,10 @@ const goalAndOutcome = () => {
             Outcome
           </p>
           <p className="text-[14px] sm:text-[15px] text-white/70 leading-[1.72]">
-            Designed and launched the first version of Bani Web and SDK,
-            serving over 300,000 businesses and customers globally.
-            Bani successfully processed over 100k transactions and a total
-            of 293M Naira (GBP 532k) in total transaction volume over three
-            months.
+            Designed and launched the first version of Bani Web and SDK, serving
+            over 300,000 businesses and customers globally. Bani successfully
+            processed over 100k transactions and a total of 293M Naira (GBP
+            532k) in total transaction volume over three months.
           </p>
         </div>
       </div>

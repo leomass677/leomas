@@ -11,21 +11,28 @@ const Work = () => {
         {/* ── Header ── */}
         <header className="flex flex-col gap-3 max-w-[640px]">
           <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[#878789]">
-            Selected work · {new Date().getFullYear()}
+            Selected work ·{" "}
+            <span className="text-gray-600 font-bold">From 2025</span>{" "}
+            <span className="">- Present</span>
           </p>
           <h1
             className="
-              font-bold text-[#0F0E0E] tracking-[-0.028em] leading-[1.08] md:leading-[1.12]
-              text-[32px] sm:text-[42px] md:text-[50px]
+              font-semibold font-display text-[#0F0E0E]
+              md:text-[48px]
+              sm:text-[40px]
+              text-[32px]
+              tracking-normal
+              font-semibold
+              md:leading-[64px] 
+              leading-[43.2px]
+              text-grey w-full
             "
           >
-            Things I've <span className="text-[#878789]">designed</span>
-            <br />
-            &amp; built.
+            Projects <br />
+            <span className="text-[#808080]">Crafted with Purpose.</span>
           </h1>
           <p className="text-[14px] sm:text-[15px] text-[#808080] leading-[1.72] max-w-[480px]">
-            A collection of product design and development work from early
-            concepts to shipped experiences.
+            Navigater to explore each project in details.
           </p>
         </header>
 

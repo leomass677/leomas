@@ -1,3 +1,8 @@
+import ai_resume_image from "../assets/ai_resume_image.svg";
+import ai_mockup from "../assets/ai_mockup.svg";
+import crowdsourced_image from "../assets/Crowdsourced_image.svg";
+import architecture from "../assets/architecture.svg";
+
 const workDetails = {
   version: "v1.0.0",
   projects: [
@@ -21,7 +26,7 @@ const workDetails = {
         { label: "Role", value: "Designer" },
         { label: "Year", value: 2025 },
       ],
-      cardImage: "",
+      cardImage: ai_resume_image,
       cardImageAlt: "AI Resume Builder interface preview",
       backgroundStory: [
         "This project was inspired by the difficulties many people face when creating resumes and cover letters. Most users, especially students and entry-level job seekers, often struggle with what to write, how to structure their content, and how to make their applications stand out. Existing tools can feel complicated or outdated, which makes the process even more stressful.",
@@ -56,12 +61,12 @@ const workDetails = {
         title: "Information Architecture",
         description:
           "Organizing the platform into a logical flow from Onboarding and Data Input to AI Generation and Final Export to ensure a fast, intuitive navigation experience.",
-        image: "",
+        image: architecture,
         imageAlt: "Information architecture diagram",
       },
       visualIdentity: {
         title: "Visual Identity & Mockups",
-        image: "",
+        image: ai_mockup,
         imageAlt: "Design system and UI mockups gallery",
       },
       insights: {
@@ -90,7 +95,7 @@ const workDetails = {
         { label: "Role", value: "Designer" },
         { label: "Year", value: 2025 },
       ],
-      cardImage: "",
+      cardImage: crowdsourced_image,
       cardImageAlt: "Price intelligence dashboard preview",
       backgroundStory: [
         "Local shoppers often face inconsistent pricing and 'cheating' due to a lack of centralized, reliable data. Without a transparent price guide, budgeting becomes difficult and market exploitation common.",
@@ -124,12 +129,12 @@ const workDetails = {
         title: "Information Architecture",
         description:
           "A flat, accessible structure focusing on two primary actions: Price Discovery (Search/Browse) and Price Contribution (Submission), supported by a clean admin oversight system.",
-        image: "",
+        image: architecture,
         imageAlt: "Information architecture diagram",
       },
       visualIdentity: {
         title: "Visual Identity & Mockups",
-        image: "",
+        image: crowdsourced_image,
         imageAlt: "Design system and UI mockups gallery",
       },
       insights: {
@@ -193,7 +198,7 @@ const workDetails = {
         title: "Information Architecture",
         description:
           "Organizing the platform into a logical flow from Onboarding and Data Input to AI Generation and Final Export to ensure a fast, intuitive navigation experience.",
-        image: "",
+        image: architecture,
         imageAlt: "Information architecture diagram",
       },
       visualIdentity: {

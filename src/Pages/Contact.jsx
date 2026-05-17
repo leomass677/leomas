@@ -3,7 +3,7 @@ import { TbSend2 } from "react-icons/tb";
 import { FaCheck } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 // eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 const inputBase =
   "w-full bg-transparent border-none outline-none font-[inherit] resize-none";
@@ -30,6 +30,14 @@ const Contact = () => {
     message: "",
   });
   const [status, setStatus] = useState(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  // Load EmailJS credentials from environment (Vite requires VITE_ prefix)
+  const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const AUTO_REPLY_TEMPLATE_ID = import.meta.env
+    .VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID;
+  const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
   const handleChange = (e) =>
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
@@ -38,12 +46,21 @@ const Contact = () => {
     e.preventDefault();
     setStatus("sending");
 
-    // EmailJS configuration
-    // Replace these with your actual EmailJS credentials
-    const SERVICE_ID = "YOUR_SERVICE_ID";
-    const TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-    const AUTO_REPLY_TEMPLATE_ID = "YOUR_AUTO_REPLY_TEMPLATE_ID";
-    const PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+    // EmailJS configuration is read from environment variables.
+    // Create a local `.env.local` with the following keys (do NOT commit it):
+    // VITE_EMAILJS_SERVICE_ID=your_service_id
+    // VITE_EMAILJS_TEMPLATE_ID=your_template_id
+    // VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID=your_auto_reply_template_id
+    // VITE_EMAILJS_PUBLIC_KEY=your_public_key
+    6;
+    if (!SERVICE_ID || !TEMPLATE_ID || !AUTO_REPLY_TEMPLATE_ID || !PUBLIC_KEY) {
+      console.warn(
+        "EmailJS env vars missing. Please set VITE_EMAILJS_* in .env.local",
+      );
+      setStatus("error");
+      setTimeout(() => setStatus(null), 3000);
+      return;
+    }
 
     // Template params for admin notification
     const adminTemplateParams = {
@@ -61,7 +78,7 @@ const Contact = () => {
       to_email: form.email,
       user_message: form.message,
       user_subject: form.subject,
-      reply_to: "your@email.com",
+      reply_to: "muktaradamu677@email.com",
       current_year: new Date().getFullYear(),
     };
 

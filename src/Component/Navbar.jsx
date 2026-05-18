@@ -2,14 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 const _motion = motion;
+import SafeMotion from "../utils/SafeMotion";
+import { useSafeReducedMotion } from "../utils/motionVariants";
 import UserCard from "./UserCard";
 import { VscDash } from "react-icons/vsc";
 import { LuText, LuX } from "react-icons/lu";
+import workdetails from "../data/workdetails";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigateTo = useNavigate();
+  const reduce = useSafeReducedMotion();
+  const footer = workdetails.footer;
 
   /* ── Close mobile menu on route change ── */
   useEffect(() => {
@@ -24,15 +29,10 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
-  /* ── Scroll to top helper function ── */
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  /* ── Handle navigation with scroll to top ── */
+  /* ── Handle navigation (no forced scroll) ── */
   const handleNavigation = (path) => {
     navigateTo(path);
-    scrollToTop();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const navigation = [
@@ -53,10 +53,15 @@ const Navbar = () => {
       `}</style>
 
       {/* ── Fixed nav wrapper ── */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+      <SafeMotion
+        as="nav"
+        motionProps={{
+          initial: reduce ? { y: 0 } : { y: -100 },
+          animate: { y: 0 },
+          transition: reduce
+            ? { duration: 0 }
+            : { duration: 0.45, type: "spring", stiffness: 100 },
+        }}
         className="fixed top-0 left-0 w-full z-50 bg-[#FCFCFD] transition-shadow duration-300"
       >
         {/* ── Inner bar ── */}
@@ -64,11 +69,11 @@ const Navbar = () => {
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-[80px] h-16 md:h-20 flex items-center justify-between">
           {/* Logo / UserCard */}
           <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={reduce ? undefined : { scale: 1.02 }}
+            whileTap={reduce ? undefined : { scale: 0.98 }}
             className="no-underline flex-shrink-0"
           >
-            <Link to="/" onClick={scrollToTop} className="no-underline">
+            <Link to="/" className="no-underline">
               <UserCard />
             </Link>
           </motion.div>
@@ -85,9 +90,15 @@ const Navbar = () => {
                 return (
                   <motion.div
                     key={item.name}
-                    initial={{ opacity: 0, y: -20 }}
+                    initial={
+                      reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: -12 }
+                    }
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.1, duration: 0.3 }}
+                    transition={
+                      reduce
+                        ? { duration: 0 }
+                        : { delay: idx * 0.06, duration: 0.28 }
+                    }
                     className="flex gap-5 items-center"
                   >
                     <div
@@ -125,10 +136,17 @@ const Navbar = () => {
 
             {/* Let's Talk CTA */}
             <motion.button
-              onClick={() => handleNavigation("/contact")}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              onClick={() => {
+                handleNavigation("/contact");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              whileHover={reduce ? undefined : { scale: 1.05 }}
+              whileTap={reduce ? undefined : { scale: 0.95 }}
+              transition={
+                reduce
+                  ? { duration: 0 }
+                  : { type: "spring", stiffness: 400, damping: 17 }
+              }
               className="
                 font-dm text-white bg-dark shadow-md backdrop-blur-2xl
                 rounded-full px-6 pl-[26px] py-4 pb-[18px]
@@ -148,7 +166,7 @@ const Navbar = () => {
             onClick={() => setIsOpen((v) => !v)}
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
-            whileTap={{ scale: 0.9 }}
+            whileTap={reduce ? undefined : { scale: 0.9 }}
             className="md:hidden text-[28px] text-[#0F0E0E] p-1 flex items-center justify-center"
           >
             {isOpen ? <LuX /> : <LuText />}
@@ -177,14 +195,21 @@ const Navbar = () => {
                   return (
                     <motion.div
                       key={item.name}
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={
+                        reduce ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }
+                      }
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + idx * 0.1, duration: 0.3 }}
+                      transition={
+                        reduce
+                          ? { duration: 0 }
+                          : { delay: 0.06 + idx * 0.06, duration: 0.28 }
+                      }
                       className="flex"
                     >
                       <div
                         onClick={() => {
                           handleNavigation(item.path);
+
                           setIsOpen(false);
                         }}
                         className={`
@@ -212,10 +237,11 @@ const Navbar = () => {
                     <motion.button
                       onClick={() => {
                         handleNavigation("/contact");
+
                         setIsOpen(false);
                       }}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                      whileHover={reduce ? undefined : { scale: 1.02 }}
+                      whileTap={reduce ? undefined : { scale: 0.98 }}
                       initial={{ opacity: 0, y: -1, scale: 0 }}
                       animate={{ opacity: 1, y: 1, scale: 1 }}
                       transition={{ delay: 0.1, duration: 0.2 }}
@@ -232,13 +258,15 @@ const Navbar = () => {
                     </motion.button>
 
                     {/* Download CV */}
-                    <motion.button
+                    <motion.a
+                      href={footer.downloads.cv.url}
+                      download
                       onClick={() => {
-                        window.open("/files/cv.pdf", "_blank");
+                        window.open(footer.downloads.cv.url, "_blank");
                         setIsOpen(false);
                       }}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                      whileHover={reduce ? undefined : { scale: 1.02 }}
+                      whileTap={reduce ? undefined : { scale: 0.98 }}
                       className="
                         w-full text-center px-8 py-4
                         bg-[#878789] text-[#f8f8f5]
@@ -249,14 +277,14 @@ const Navbar = () => {
                       "
                     >
                       Download CV
-                    </motion.button>
+                    </motion.a>
                   </div>
                 </motion.div>
               </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.nav>
+      </SafeMotion>
 
       {/* ── Mobile backdrop ── */}
       {/* Dim the page behind the open menu; click to close */}
@@ -277,4 +305,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);

@@ -2,6 +2,7 @@ import ai_resume_image from "../assets/ai_resume_image.svg";
 import ai_mockup from "../assets/ai_mockup.svg";
 import crowdsourced_image from "../assets/Crowdsourced_image.svg";
 import architecture from "../assets/architecture.svg";
+import muktar_pdf from "../assets/muktar.pdf";
 
 const workDetails = {
   version: "v1.0.0",
@@ -298,8 +299,12 @@ const workDetails = {
     downloads: {
       cv: {
         title: "Download CV",
-        url: "/files/cv.pdf",
-        fileSize: "2.4 MB",
+        url: muktar_pdf,
+        fileSize: function () {
+          const fileSizeInBytes = 1024 * 1024; // Example file size (1 MB)
+          const fileSizeInMB = (fileSizeInBytes / (1024 * 1024)).toFixed(2);
+          return `${fileSizeInMB} MB`;
+        },
         format: "PDF",
       },
     },

@@ -16,6 +16,7 @@ import {
   SiTailwindcss,
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
+import ImageWithSkeleton from "../Component/ImageWithSkeleton";
 
 /* ── Tool icon map ── */
 const TOOL_ICONS = {
@@ -62,7 +63,10 @@ const DesignDetails = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#FCFCFD] mt-14 sm:mt-14 md:mt-16 lg:mt-20 pb-20">
+    <main
+      onLoad={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      className="min-h-screen bg-[#FCFCFD] mt-14 sm:mt-14 md:mt-16 lg:mt-20 pb-20"
+    >
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16">
         {/* ━━━ HEADER ━━━ */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-12 mb-8 lg:mb-10">
@@ -125,17 +129,12 @@ const DesignDetails = () => {
               rounded-tr-4xl rounded-bl-4xl
               `}
           >
-            <img
+            <ImageWithSkeleton
               src={currentProject.cardImage}
               alt={currentProject.title}
               loading="lazy"
-              decoding="async"
-              className="
-                  w-full max-w-[852px] mx-auto block
-                  object-cover
-                  transition-transform duration-300 ease-out
-                  group-hover:scale-[1.02]
-                "
+              wrapperClassName="w-full max-w-[852px] mx-auto"
+              imgClassName="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
             />
           </div>
         )}
@@ -253,17 +252,13 @@ const DesignDetails = () => {
               lg:rounded-tr-4xl lg:rounded-bl-4xl
               `}
               >
-                <img
+                <ImageWithSkeleton
                   src={currentProject?.informationArchitecture?.image}
                   alt={currentProject?.informationArchitecture?.imageAlt}
                   loading="lazy"
                   decoding="async"
-                  className="
-                  w-full max-w-[852px] mx-auto block
-                  object-cover
-                  transition-transform duration-300 ease-out
-                  group-hover:scale-[1.02]
-                "
+                  wrapperClassName="w-full max-w-[852px] mx-auto block"
+                  imgClassName="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
                 />
               </div>
             )}
@@ -291,17 +286,13 @@ const DesignDetails = () => {
               lg:rounded-tr-4xl lg:rounded-bl-4xl
               `}
                 >
-                  <img
+                  <ImageWithSkeleton
                     src={currentProject?.visualIdentity.image}
                     alt={currentProject?.visualIdentity.imageAlt}
                     loading="lazy"
                     decoding="async"
-                    className="
-                  w-full max-w-[852px] mx-auto block
-                  object-cover
-                  transition-transform duration-300 ease-out
-                  group-hover:scale-[1.02]
-                "
+                    wrapperClassName="w-full max-w-[852px] mx-auto block"
+                    imgClassName="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
                   />
                 </div>
               )}
@@ -323,7 +314,7 @@ const DesignDetails = () => {
 
         {/* ━━━ NEXT PROJECT ━━━ */}
         {nextProject && (
-          <div className="w-full border-t border-[#6B6B59]/[0.13] pt-10 mb-14 text-center">
+          <div className="w-full border-t border-[#6B6B59]/[0.13] pt-10  text-center">
             <button
               onClick={handleNext}
               className="group inline-flex flex-col items-center gap-2 cursor-pointer bg-transparent border-none"

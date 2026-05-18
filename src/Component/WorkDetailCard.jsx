@@ -2,6 +2,8 @@ import React from "react";
 import { MdArrowOutward } from "react-icons/md";
 import { motion } from "framer-motion";
 const _motion = motion;
+import { useSafeReducedMotion, item } from "../utils/motionVariants";
+import ImageWithSkeleton from "./ImageWithSkeleton";
 import images from "../data/images";
 import { Link } from "react-router-dom";
 import workDetails from "../data/workdetails";
@@ -10,6 +12,7 @@ const WorkDetailCard = ({
   image = images?.ai_resume_image,
   imageAlt = "AI Resume and Cover Letter",
 }) => {
+  const reduce = useSafeReducedMotion();
   const basicinfo = workDetails.projects;
 
   return (
@@ -20,14 +23,13 @@ const WorkDetailCard = ({
       {basicinfo.map((project, index) => (
         <motion.div
           key={project.id}
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{
-            once: true,
-            margin: "-50px",
-            amount: 0.2, // Trigger when 20% of the element is visible
-          }}
-          transition={{ duration: 0.6, delay: index * 0.1 }}
+          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
+          whileInView={reduce ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px", amount: 0.2 }}
+          transition={
+            reduce ? { duration: 0 } : { duration: 0.48, delay: index * 0.08 }
+          }
+          variants={reduce ? undefined : item}
         >
           <Link
             to={`/work/${project.path}`}
@@ -36,6 +38,7 @@ const WorkDetailCard = ({
           >
             {/* ── Image card ── */}
             <div
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className={`w-full overflow-hidden
               liner
               lg:rounded-[32px]
@@ -46,17 +49,12 @@ const WorkDetailCard = ({
               `}
             >
               <div className="w-full overflow-hidden">
-                <img
-                  src={image}
-                  alt={imageAlt}
-                  loading="lazy"
-                  decoding="async"
-                  className="
-                  w-full max-w-[852px] mx-auto block
-                  object-cover
-                  transition-transform duration-300 ease-out
-                  group-hover:scale-[1.02]
-                "
+                <ImageWithSkeleton
+                  src={project.cardImage || image}
+                  alt={project.cardImageAlt || imageAlt}
+                  loading={index < 2 ? "eager" : "lazy"}
+                  wrapperClassName="w-full max-w-[852px] mx-auto"
+                  imgClassName="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
                 />
               </div>
             </div>
@@ -120,4 +118,4 @@ const WorkDetailCard = ({
   );
 };
 
-export default WorkDetailCard;
+export default React.memo(WorkDetailCard);

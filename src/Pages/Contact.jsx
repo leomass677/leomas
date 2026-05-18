@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TbSend2 } from "react-icons/tb";
 import { FaCheck } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
-// eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useSafeReducedMotion } from "../utils/motionVariants";
 
 const inputBase =
   "w-full bg-transparent border-none outline-none font-[inherit] resize-none";
@@ -30,9 +30,8 @@ const Contact = () => {
     message: "",
   });
   const [status, setStatus] = useState(null);
-  const prefersReducedMotion = useReducedMotion();
+  const reduce = useSafeReducedMotion();
 
-  // Load EmailJS credentials from environment (Vite requires VITE_ prefix)
   const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   const AUTO_REPLY_TEMPLATE_ID = import.meta.env
@@ -46,65 +45,49 @@ const Contact = () => {
     e.preventDefault();
     setStatus("sending");
 
-    // EmailJS configuration is read from environment variables.
-    // Create a local `.env.local` with the following keys (do NOT commit it):
-    // VITE_EMAILJS_SERVICE_ID=your_service_id
-    // VITE_EMAILJS_TEMPLATE_ID=your_template_id
-    // VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID=your_auto_reply_template_id
-    // VITE_EMAILJS_PUBLIC_KEY=your_public_key
-    6;
     if (!SERVICE_ID || !TEMPLATE_ID || !AUTO_REPLY_TEMPLATE_ID || !PUBLIC_KEY) {
-      console.warn(
-        "EmailJS env vars missing. Please set VITE_EMAILJS_* in .env.local",
-      );
       setStatus("error");
       setTimeout(() => setStatus(null), 3000);
       return;
     }
 
-    // Template params for admin notification
     const adminTemplateParams = {
-      from_name: form.name,
-      from_email: form.email,
-      subject: form.subject,
-      message: form.message,
-      to_name: "Your Name",
-      reply_to: form.email,
+      title: form.subject,
+      name: form.name,
+      time: new Date().toLocaleString(),
+      message: `Email: ${form.email}\n\nMessage: ${form.message}`,
     };
 
-    // Template params for auto-reply to user
     const autoReplyParams = {
       to_name: form.name,
       to_email: form.email,
       user_message: form.message,
       user_subject: form.subject,
-      reply_to: "muktaradamu677@email.com",
+      reply_to: "muktaradamu677@gmail.com",
       current_year: new Date().getFullYear(),
     };
 
     try {
-      const [adminResponse, autoReplyResponse] = await Promise.all([
-        emailjs.send(SERVICE_ID, TEMPLATE_ID, adminTemplateParams, PUBLIC_KEY),
-        emailjs.send(
-          SERVICE_ID,
-          AUTO_REPLY_TEMPLATE_ID,
-          autoReplyParams,
-          PUBLIC_KEY,
-        ),
-      ]);
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        adminTemplateParams,
+        PUBLIC_KEY,
+      );
+      await emailjs.send(
+        SERVICE_ID,
+        AUTO_REPLY_TEMPLATE_ID,
+        autoReplyParams,
+        PUBLIC_KEY,
+      );
 
-      if (adminResponse.status === 200 && autoReplyResponse.status === 200) {
-        setStatus("sent");
-        setForm({ name: "", email: "", subject: "", message: "" });
-        setTimeout(() => setStatus(null), 3000);
-      } else {
-        setStatus("error");
-        setTimeout(() => setStatus(null), 3000);
-      }
-    } catch (error) {
-      console.error("EmailJS error:", error);
-      setStatus("error");
+      setStatus("sent");
+      setForm({ name: "", email: "", subject: "", message: "" });
       setTimeout(() => setStatus(null), 3000);
+    } catch (error) {
+      console.error("Email error:", error);
+      setStatus("error");
+      setTimeout(() => setStatus(null), 4000);
     }
   };
 
@@ -143,8 +126,8 @@ const Contact = () => {
     return (
       <motion.span
         className="w-8 h-8 rounded-[9px] bg-white/10 flex items-center justify-center flex-shrink-0"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={reduce ? undefined : { scale: 1.1 }}
+        whileTap={reduce ? undefined : { scale: 0.95 }}
       >
         <TbSend2
           size={15}
@@ -154,7 +137,6 @@ const Contact = () => {
     );
   };
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -183,13 +165,9 @@ const Contact = () => {
         animate="visible"
         variants={containerVariants}
       >
-        {/* Heading */}
         <motion.div className="flex flex-col gap-3" variants={itemVariants}>
           <motion.h1
-            className="
-              font-bold text-[#0F0E0E] tracking-[-0.028em] leading-snug
-              text-[32px] sm:text-[38px] md:text-[48px]
-            "
+            className="font-bold text-[#0F0E0E] tracking-[-0.028em] leading-snug text-[32px] sm:text-[38px] md:text-[48px]"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -208,7 +186,6 @@ const Contact = () => {
           </motion.p>
         </motion.div>
 
-        {/* Form */}
         <motion.form
           onSubmit={handleSubmit}
           className="flex flex-col gap-0 border-t border-[#6B6B59]/[0.15]"
@@ -262,7 +239,6 @@ const Contact = () => {
             />
           </Field>
 
-          {/* Submit */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -271,18 +247,9 @@ const Contact = () => {
             <motion.button
               type="submit"
               disabled={status === "sending"}
-              className="
-                mt-8 w-full flex items-center justify-between
-                bg-[#0F0E0E] text-white
-                rounded-[14px] px-5 py-4
-                text-[14px] font-semibold tracking-[0.01em]
-                hover:bg-[#313130]
-                transition-all duration-200
-                disabled:opacity-50 disabled:cursor-not-allowed
-                cursor-pointer border-none font-[inherit]
-              "
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="mt-8 w-full flex items-center justify-between bg-[#0F0E0E] text-white rounded-[14px] px-5 py-4 text-[14px] font-semibold tracking-[0.01em] hover:bg-[#313130] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer border-none font-[inherit]"
+              whileHover={reduce ? undefined : { scale: 1.02 }}
+              whileTap={reduce ? undefined : { scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
               <motion.span
@@ -297,7 +264,6 @@ const Contact = () => {
             </motion.button>
           </motion.div>
 
-          {/* Status Message Animation */}
           <AnimatePresence>
             {status === "sent" && (
               <motion.div

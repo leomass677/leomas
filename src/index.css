@@ -8,6 +8,20 @@
   box-sizing: border-box;
 }
 
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot {
+    animation: none !important;
+  }
+  .animate-pulse {
+    animation: none !important;
+  }
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 html {
   scroll-behavior: smooth;
   scrollbar-gutter: stable;

@@ -6,7 +6,10 @@ const Work = () => {
   const projects = workDetails.projects;
 
   return (
-    <main className="min-h-screen bg-[#FCFCFD]">
+    <main
+      onLoad={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      className="min-h-screen bg-[#FCFCFD]"
+    >
       <div className="flex flex-col max-w-[1200px] mx-auto px-4 gap-9 sm:gap-10 md:gap-12 lg:gap-14 xl:gap-20 md:px-6 lg:px-10 xl:px-20 w-full pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-12 lg:pb-16 ">
         {/* ── Header ── */}
         <header className="flex flex-col gap-3 max-w-[640px]">
@@ -26,6 +29,10 @@ const Work = () => {
               md:leading-[64px] 
               leading-[43.2px]
               text-grey w-full
+              tracking-normal
+              
+              lg:tracking-normal
+              xl:tracking-wide
             "
           >
             Projects <br />

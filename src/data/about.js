@@ -1,3 +1,5 @@
+import crowdsourced_image from "../assets/Crowdsourced_image.svg";
+
 const about = {
   // Personal Info
   personal: {
@@ -92,7 +94,7 @@ const about = {
         location: "Abuja, Nigeria",
         period: { start: "2024-06", end: "2024-12" },
         dateDisplay: "Jun 2024 – Dec 2024",
-        certificateUrl: "https://example.com/certificate",
+        certificateUrl: crowdsourced_image,
         highlights: [
           "Contributed to live software development projects",
           "Collaborated with cross-functional teams",
@@ -107,7 +109,8 @@ const about = {
         location: "Ilorin, Nigeria",
         period: { start: "2024-03", end: "2024-06" },
         dateDisplay: "Mar 2024 – Jun 2024",
-        certificateUrl: "https://example.com/certificate",
+        certificateUrl: crowdsourced_image,
+        hasCertificate: true,
         highlights: [
           "Completed intensive UI/UX design training",
           "Learned frontend development with React and Tailwind",

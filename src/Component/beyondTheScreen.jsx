@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 const _motion = motion;
 import images from "../data/images";
+import ImageWithSkeleton from "./ImageWithSkeleton";
 
 const BeyondTheScreen = () => {
   return (
@@ -32,12 +33,12 @@ const BeyondTheScreen = () => {
           viewport={{ once: true }}
           className="w-full overflow-hidden"
         >
-          <img
+          <ImageWithSkeleton
             src={images.screen2}
             alt="Beyond the screen — photo one"
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover aspect-[4/3] sm:aspect-auto sm:h-[320px] md:h-[360px] lg:h-[420px] xl:h-[480px]"
+            loading="eager"
+            wrapperClassName="w-full"
+            imgClassName="w-full h-full object-cover aspect-[4/3] sm:aspect-auto sm:h-[320px] md:h-[360px] lg:h-[420px] xl:h-[480px]"
           />
         </motion.div>
         <motion.div
@@ -47,12 +48,12 @@ const BeyondTheScreen = () => {
           viewport={{ once: true }}
           className="w-full overflow-hidden"
         >
-          <img
+          <ImageWithSkeleton
             src={images.screen1}
             alt="Beyond the screen — photo two"
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover aspect-[4/3] sm:aspect-auto sm:h-[320px] md:h-[360px] lg:h-[420px] xl:h-[480px]"
+            loading="eager"
+            wrapperClassName="w-full"
+            imgClassName="w-full h-full object-cover aspect-[4/3] sm:aspect-auto sm:h-[320px] md:h-[360px] lg:h-[420px] xl:h-[480px]"
           />
         </motion.div>
       </div>

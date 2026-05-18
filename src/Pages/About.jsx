@@ -5,6 +5,7 @@ import IconMapper from "../Component/IconMapper";
 import about from "../data/about";
 import images from "../data/images";
 import BeyondTheScreen from "../Component/beyondTheScreen";
+import ImageWithSkeleton from "../Component/ImageWithSkeleton";
 import AboutWebsite from "../Component/aboutWebsite";
 import WorkExperience from "../Component/workExperience";
 
@@ -174,22 +175,12 @@ const About = () => {
             variants={slideInRightVariants}
             className="w-full lg:w-5/12 flex lg:justify-end h-fit flex-shrink-0"
           >
-            <motion.img
+            <ImageWithSkeleton
               src={images.about_image}
               alt={about.bio.title}
-              loading="lazy"
-              decoding="async"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-              whileHover={{ scale: 1.02 }}
-              className="
-                object-cover
-                w-full
-                lg:max-w-[420px]
-                h-auto
-                transition-all duration-300
-              "
+              loading="eager"
+              wrapperClassName="w-full lg:max-w-[420px]"
+              imgClassName="object-cover w-full h-auto transition-all duration-300"
             />
           </motion.div>
         </div>

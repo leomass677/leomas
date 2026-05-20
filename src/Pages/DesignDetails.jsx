@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import workDetails from "../data/workdetails";
 import { MdArrowOutward } from "react-icons/md";
+import { LuChevronRight } from "react-icons/lu";
 
 import {
   TbArrowLeft,
@@ -65,7 +66,7 @@ const DesignDetails = () => {
   return (
     <main
       onLoad={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="min-h-screen bg-[#FCFCFD] mt-14 sm:mt-14 md:mt-16 lg:mt-20 pb-20"
+      className="min-h-screen bg-[#FCFCFD] mt-14 sm:mt-14 md:mt-16 lg:mt-20 mb-4 pb-20"
     >
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16">
         {/* ━━━ HEADER ━━━ */}
@@ -100,10 +101,27 @@ const DesignDetails = () => {
             <p className="text-[14px] sm:text-[16px] text-[#808080] leading-[1.7] max-w-[680px] ">
               {currentProject.overview}
             </p>
+            {currentProject?.link && (
+              <a
+                href={currentProject?.link || null}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="
+                flex items-center 
+                text-[14px]
+                sm:text-[16px]
+                leading-[32px]
+                font-[500] 
+                sm:font-semibold cursor-pointer"
+              >
+                View Website
+                <LuChevronRight size={20} className="" />
+              </a>
+            )}
           </div>
 
           {/* Right: meta grid */}
-          <div className="grid grid-cols-1 lg:self-end lg:pb-4 sm:grid-cols-4 gap-8 items-center lg:grid-cols-2  lg:min-w-[220px] h-fit  lg:pt-2">
+          <div className="grid grid-cols-1 lg:self-end lg:pb-4 sm:grid-cols-4 gap-8  items-center lg:grid-cols-2  lg:min-w-[220px] lg:max-w-[350px] h-fit  lg:pt-2">
             {currentProject.details.map((detail, idx) => (
               <div key={idx} className="flex flex-col gap-0.5">
                 <p className="text-[10px] font-semibold tracking-[0.1em] uppercase text-[#9A9A82]">
@@ -314,7 +332,7 @@ const DesignDetails = () => {
 
         {/* ━━━ NEXT PROJECT ━━━ */}
         {nextProject && (
-          <div className="w-full border-t border-[#6B6B59]/[0.13] pt-10  text-center">
+          <div className="w-full border-t border-[#6B6B59]/[0.13] pt-14 lg:pt-16  text-center">
             <button
               onClick={handleNext}
               className="group inline-flex flex-col items-center gap-2 cursor-pointer bg-transparent border-none"

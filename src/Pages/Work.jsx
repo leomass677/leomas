@@ -1,6 +1,7 @@
 import React from "react";
 import workDetails from "../data/workdetails";
 import WorkDetailCard from "../Component/WorkDetailCard";
+import GoalAndOutcome from "../Component/goalAndOutcome";
 
 const Work = () => {
   const projects = workDetails.projects;
@@ -8,7 +9,7 @@ const Work = () => {
   return (
     <main
       onLoad={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="min-h-screen bg-[#FCFCFD]"
+      className="min-h-screen mb-24 bg-[#FCFCFD]"
     >
       <div className="flex flex-col max-w-[1200px] mx-auto px-4 gap-9 sm:gap-10 md:gap-12 lg:gap-14 xl:gap-20 md:px-6 lg:px-10 xl:px-20 w-full pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-12 lg:pb-16 ">
         {/* ── Header ── */}
@@ -45,10 +46,10 @@ const Work = () => {
 
         {/* ── Project list ── */}
       </div>
-      <div className="flex flex-col gap-10 sm:gap-14">
-        {projects.map((project) => (
-          <WorkDetailCard key={project.id} project={project} />
-        ))}
+      <WorkDetailCard />
+      <div className="mt-16 ">
+        {" "}
+        <GoalAndOutcome />
       </div>
     </main>
   );

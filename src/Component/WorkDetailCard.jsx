@@ -7,11 +7,9 @@ import ImageWithSkeleton from "./ImageWithSkeleton";
 import images from "../data/images";
 import { Link } from "react-router-dom";
 import workDetails from "../data/workdetails";
+import { LuChevronRight } from "react-icons/lu";
 
-const WorkDetailCard = ({
-  image = images?.ai_resume_image,
-  imageAlt = "AI Resume and Cover Letter",
-}) => {
+const WorkDetailCard = ({ image = null, imageAlt = "Images not found" }) => {
   const reduce = useSafeReducedMotion();
   const basicinfo = workDetails.projects;
 
@@ -38,7 +36,6 @@ const WorkDetailCard = ({
           >
             {/* ── Image card ── */}
             <div
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className={`w-full overflow-hidden
               liner
               lg:rounded-[32px]

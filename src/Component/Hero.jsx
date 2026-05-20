@@ -42,11 +42,11 @@ const Hero = () => {
               font-semibold font-display text-[#0F0E0E]
               md:text-[48px]
               sm:text-[40px]
-              text-[32px]
+              text-[38px]
               tracking-normal
               font-semibold
               md:leading-[64px] 
-              leading-[43.2px]
+              leading-[45.2px]
               text-grey w-full
             "
             variants={reduce ? undefined : item}
@@ -192,7 +192,7 @@ const Hero = () => {
           }
           onClick={() => {
             const workSection = document.getElementById("work");
-            const offset = 100; // Adjust this value based on your header height
+            const offset = 94; // Adjust this value based on your header height
             const top =
               workSection.getBoundingClientRect().top +
               window.pageYOffset -
@@ -200,10 +200,7 @@ const Hero = () => {
             window.scrollTo({ top, behavior: "smooth" });
           }}
         >
-          Selected Projects{" "}
-          <motion.div>
-            <LuChevronRight size={20} className="" />
-          </motion.div>
+          Selected Projects <motion.div></motion.div>
         </motion.p>
         <motion.p
           className="flex items-center gap-0.5"

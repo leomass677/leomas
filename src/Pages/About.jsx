@@ -8,6 +8,7 @@ import BeyondTheScreen from "../Component/beyondTheScreen";
 import ImageWithSkeleton from "../Component/ImageWithSkeleton";
 import AboutWebsite from "../Component/aboutWebsite";
 import WorkExperience from "../Component/workExperience";
+import { useEffect } from "react";
 
 /* ── Animation variants for container staggering ── */
 const containerVariants = {
@@ -89,7 +90,7 @@ const About = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col gap-5 justify-center mt-10"
+      className="flex flex-col gap-5 justify-center my-10 mb-24"
     >
       {/* ── About section ── */}
       <motion.div

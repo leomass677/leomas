@@ -30,7 +30,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="w-full mt-24 lg:mt-32 bg-[#0F0E0E] text-white">
+    <footer className="w-full bg-[#0F0E0E] text-white">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16 pt-14 sm:pt-16 lg:pt-20 pb-8 flex flex-col gap-12 sm:gap-14 lg:gap-16">
         {/* ━━━ TOP ━━━ */}
         <motion.div
@@ -103,7 +103,7 @@ const Footer = () => {
             >
               {/* Email with availability dot */}
               <motion.a
-                href={`mailto:${footer.email}`}
+                href={`mailto:${footer.email.trim()}`}
                 whileHover={{ x: -2 }}
                 className="inline-flex items-center gap-2 text-[13px] sm:text-[14px] font-medium text-white/60 hover:text-white transition-colors duration-200 no-underline"
               >

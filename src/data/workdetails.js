@@ -15,6 +15,7 @@ const workDetails = {
       description:
         "Create tailored resumes and compelling cover letters in minutes. Powered by AI to highlight your strengths and match job descriptions perfectly.",
       year: 2025,
+      link: "https:",
       header: {
         prefix: "Designing",
         highlight: "AI Resume and Cover Letter Builder",
@@ -84,6 +85,7 @@ const workDetails = {
       description:
         "Crowdsourced, community-powered data to help you shop smarter and avoid overpaying. Real-time price tracking and insights for local markets.",
       year: 2025,
+      link: "",
       header: {
         prefix: "Designing",
         highlight: "Crowdsourced Price Intelligence",
@@ -145,72 +147,175 @@ const workDetails = {
       },
     },
     {
-      id: 1,
-      slug: "ai-resume-cover-letter-builder",
-      path: "ai-resume-builder",
-      title: "AI Resume and Cover Letter Builder",
+      id: 4,
+      slug: "beiroot-food-ordering-platform",
+      path: "beiroot-web-app",
+      title: "Beiroot Food Ordering Platform",
       description:
-        "Create tailored resumes and compelling cover letters in minutes. Powered by AI to highlight your strengths and match job descriptions perfectly.",
+        "A modern food ordering platform with seamless WhatsApp ordering and a responsive user experience",
       year: 2025,
+      link: "https://beiroot.netlify.app",
       header: {
         prefix: "Designing",
-        highlight: "AI Resume and Cover Letter Builder",
+        highlight: "Beiroot Food Ordering Platform",
       },
       overview:
-        "This project is a modern AI-powered resume and cover letter platform designed to simplify and enhance the job application process. The interface focuses on clarity, efficiency, and user guidance, helping users create professional documents with minimal effort.",
+        "This project is a modern food ordering platform created for Beiroot to simplify online food ordering and improve customer experience. The platform allows users to explore menus, add items to cart, and place orders directly through WhatsApp with a clean, responsive, and visually engaging interface.",
+
       details: [
         { label: "Designed with", value: "Figma" },
+        { label: "Developed with", value: "React & Tailwind CSS" },
         { label: "Platform", value: "Web" },
-        { label: "Role", value: "Designer" },
+        { label: "Role", value: "UI/UX Designer & Frontend Developer" },
         { label: "Year", value: 2025 },
       ],
-      cardImage: "",
-      cardImageAlt: "AI Resume Builder interface preview",
+
+      cardImage: crowdsourced_image,
+      cardImageAlt: "Beiroot food ordering platform preview",
+
       backgroundStory: [
-        "This project was inspired by the difficulties many people face when creating resumes and cover letters. Most users, especially students and entry-level job seekers, often struggle with what to write, how to structure their content, and how to make their applications stand out. Existing tools can feel complicated or outdated, which makes the process even more stressful.",
-        "I designed a modern AI-powered platform that guides users step-by-step, helping them quickly create and improve professional resumes and cover letters. It simplifies the process with smart suggestions, clear structure, and an easy-to-use interface, making the experience faster, more efficient, and less overwhelming.",
-        "The design emphasizes clarity and ease of use, with a clean layout and smooth navigation, allowing users to quickly create and manage their resumes and cover letters with confidence.",
+        "The project was inspired by the growing demand for fast and convenient online food ordering experiences for local restaurants. Many small food businesses struggle with outdated ordering systems or rely entirely on manual WhatsApp chats without a structured digital experience.",
+
+        "I designed and developed a modern web-based platform that combines an engaging restaurant interface with a simplified ordering workflow. Customers can easily browse meals, filter menu items, add products to cart, and complete their order directly through WhatsApp.",
+
+        "The design focuses heavily on simplicity, speed, and mobile-first usability, ensuring customers can quickly navigate the platform and place orders with minimal friction while maintaining a visually appealing brand identity.",
       ],
+
       contribution: [
         "User research",
-        "Design leadership",
-        "User flow",
-        "Visual design",
+        "UI/UX design",
+        "Frontend development",
+        "Responsive design",
         "Design systems",
+        "Component architecture",
         "Interactive prototyping",
-        "User testing",
+        "WhatsApp integration",
       ],
+
       designGoal:
-        "To replace the stress of document creation with a guided, frictionless experience that balances powerful AI automation with a clean, user-centric interface.",
+        "To create a fast, modern, and user-friendly digital food ordering experience that helps customers browse and order meals effortlessly while strengthening Beiroot’s online presence.",
+
       outcome:
-        "A seamless end-to-end platform that enables users to generate 'recruiter-ready' resumes and cover letters in minutes, eliminating writer's block and formatting errors.",
+        "A responsive and visually engaging food ordering platform that streamlines customer interactions, improves menu accessibility, and simplifies ordering through seamless WhatsApp integration.",
+
       keySolutions: [
-        "AI-Powered Builder",
-        "Smart Content Refinement",
-        "Unified Document Dashboard",
-        "Template Selection System",
+        "Interactive Food Menu",
+        "WhatsApp Checkout System",
+        "Responsive Mobile-First Design",
+        "Menu Filtering & Search",
       ],
+
       ideaGeneration: {
-        title: "Generating ideas from findings...",
+        title: "Generating ideas from customer behavior...",
         description:
-          "Translating user pain points into a structured AI workflow that prioritizes speed, clarity, and professional quality.",
+          "Transforming traditional food ordering into a modern digital experience by simplifying navigation, reducing friction, and improving ordering speed.",
       },
+
       informationArchitecture: {
         title: "Information Architecture",
         description:
-          "Organizing the platform into a logical flow from Onboarding and Data Input to AI Generation and Final Export to ensure a fast, intuitive navigation experience.",
+          "Structuring the platform into a seamless flow from Homepage and Menu Browsing to Cart Management and WhatsApp Checkout for a smooth customer experience.",
         image: architecture,
-        imageAlt: "Information architecture diagram",
+        imageAlt: "Beiroot platform information architecture",
       },
+
       visualIdentity: {
         title: "Visual Identity & Mockups",
         image: "",
-        imageAlt: "Design system and UI mockups gallery",
+        imageAlt: "Beiroot UI design and branding mockups",
       },
+
       insights: {
         title: "Key Insights & Growth",
         description:
-          "Mastered the balance between AI automation and human agency, transforming a daunting document-creation process into a seamless, high-confidence user journey.",
+          "This project strengthened my ability to combine UI/UX principles with frontend development to build a modern, conversion-focused food ordering experience optimized for both usability and brand identity.",
+      },
+    },
+    {
+      id: 5,
+      slug: "splitz-social-wallet-app",
+      path: "splitz-mobile-app",
+      title: "Splitz Social Wallet App",
+      description:
+        "A social finance mobile app that combines shared wallets, group expense tracking, and chat-based transactions into a seamless collaborative experience",
+
+      year: 2025,
+      link: "",
+
+      header: {
+        prefix: "Designing",
+        highlight: "Splitz Social Wallet App",
+      },
+
+      overview:
+        "Splitz is a modern social wallet mobile application designed to simplify shared expenses and collaborative money management. Inspired by the familiarity of messaging apps and the simplicity of digital wallets, the app allows users to create shared pods, manage contributions, split bills, and track transactions through a conversational interface.",
+
+      details: [
+        { label: "Designed with", value: "Figma" },
+        { label: "Platform", value: "Mobile App" },
+        { label: "Role", value: "UI/UX Designer" },
+        { label: "Year", value: 2025 },
+      ],
+
+      cardImage: ai_resume_image,
+      cardImageAlt: "Splitz mobile wallet app preview",
+
+      backgroundStory: [
+        "Managing shared expenses between friends, roommates, and groups is often stressful and disorganized. Most existing finance apps focus heavily on numbers and spreadsheets, making the experience feel rigid and transactional instead of collaborative.",
+
+        "Splitz was designed to make shared money management feel more social, transparent, and effortless by combining wallet functionality with a familiar chat-based interaction system.",
+
+        "The interface uses warm colors, rounded layouts, smooth micro-interactions, and conversational transaction feeds to create a friendly and approachable financial experience for everyday users.",
+      ],
+
+      contribution: [
+        "User research",
+        "UX strategy",
+        "Mobile UI design",
+        "Design systems",
+        "Interaction design",
+        "Wireframing",
+        "Prototype design",
+        "User flow design",
+      ],
+
+      designGoal:
+        "To transform shared expense management into a simple, social, and low-friction experience through intuitive wallet interactions and conversational financial tracking.",
+
+      outcome:
+        "A modern mobile finance experience that simplifies group spending, shared savings, and collaborative money management while maintaining clarity, transparency, and usability.",
+
+      keySolutions: [
+        "Chat-Based Transactions",
+        "Shared Wallet Pods",
+        "Expense Splitting System",
+        "Interactive Financial Insights",
+      ],
+
+      ideaGeneration: {
+        title: "Generating ideas from user frustrations...",
+        description:
+          "Exploring how conversational UI patterns and wallet systems could work together to make financial collaboration feel natural and engaging.",
+      },
+
+      informationArchitecture: {
+        title: "Information Architecture",
+        description:
+          "Structuring the app into clear flows including onboarding, pod management, transactions, analytics, settlements, and collaborative financial activities.",
+        image: architecture,
+        imageAlt: "Splitz app information architecture",
+      },
+
+      visualIdentity: {
+        title: "Visual Identity & Mockups",
+        image: "",
+        imageAlt: "Splitz mobile app design system and UI mockups",
+      },
+
+      insights: {
+        title: "Key Insights & Growth",
+        description:
+          "This project strengthened my understanding of financial product design, mobile interaction systems, and how social design patterns can improve user engagement in fintech experiences.",
       },
     },
   ],
@@ -261,27 +366,27 @@ const workDetails = {
     social: [
       {
         platform: "LinkedIn",
-        url: "https://linkedin.com/in/muktaradamu",
+        url: "https://bit.ly/muktar-adamu-linkedin",
         icon: "FaLinkedinIn",
         color: "#0077b5",
       },
       {
         platform: "GitHub",
-        url: "",
+        url: "https://github.com/leomass677",
         icon: "FaGithub",
         color: "#333333",
       },
       {
-        platform: "Dribbble",
-        url: "https://dribbble.com/muktaradamu",
-        icon: "FaDribbble",
-        color: "#ea4c89",
-      },
-      {
         platform: "Instagram",
-        url: "https://instagram.com/muktaradamu",
+        url: "https://www.instagram.com/leomas677?igsh=N2x4cjJjZjJyNHZn&utm_source=qr",
         icon: "FaInstagram",
         color: "#e4405f",
+      },
+      {
+        platform: "Dribbble",
+        url: "/",
+        icon: "FaDribbble",
+        color: "#ea4c89",
       },
     ],
 

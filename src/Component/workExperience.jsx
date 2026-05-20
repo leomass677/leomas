@@ -291,7 +291,7 @@ const MobileCard = ({ item, index, total, onViewCert }) => {
               reduce ? undefined : { delay: index * 0.1 + 0.55 + idx * 0.03 }
             }
             whileHover={reduce ? undefined : { scale: 1.05 }}
-            className="text-[10px] font-semibold tracking-[0.08em] uppercase text-[#6B6B59] bg-[rgba(107,107,89,0.07)] border border-[rgba(107,107,89,0.18)] rounded-full px-2.5 py-[3px]"
+            className="text-[10px] font-semibold tracking-[0.08em] uppercase text-[#6B6B59] liner border border-[rgba(107,107,89,0.18)]  rounded-[2px] px-8 py-[6px]"
           >
             {t}
           </motion.span>
@@ -487,7 +487,7 @@ const WorkExperience = () => {
             transition={{ duration: 0.5 }}
             className="py-10 border-b border-[#6B6B59]/15"
           >
-            <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] mb-2">
+            <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#9A9A82] mb-6 md:mb-3">
               Career
             </p>
             <h2 className="text-[28px] sm:text-[32px] font-bold text-[#0F0E0E] leading-[1.15] tracking-[-0.02em]">
@@ -525,9 +525,9 @@ const WorkExperience = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="sticky top-0 h-screen flex flex-col justify-center gap-8 w-[200px] lg:w-[260px] xl:w-[300px] flex-shrink-0 py-16"
+            className="sticky top-0 h-screen flex flex-col justify-center gap-8 w-[200px] lg:w-[260px] xl:w-[400px] xl:pl-28 flex-shrink-0 py-16"
           >
-            <div>
+            <div className="">
               <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[#9A9A82] mb-3">
                 Career
               </p>

@@ -10,7 +10,7 @@ const Home = () => {
       className=""
     >
       <Hero />
-      <div className="flex flex-col gap-12 sm:gap-16 md:gap-20">
+      <div className="flex flex-col gap-12 sm:gap-16 md:gap-20 mb-24">
         {" "}
         <WorkDetailCard />
         <GoalAndOutcome />

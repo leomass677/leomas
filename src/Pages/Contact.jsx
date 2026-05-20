@@ -32,11 +32,10 @@ const Contact = () => {
   const [status, setStatus] = useState(null);
   const reduce = useSafeReducedMotion();
 
-  const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-  const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-  const AUTO_REPLY_TEMPLATE_ID = import.meta.env
-    .VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID;
-  const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+  const SERVICE_ID = "service_tphcff7";
+  const TEMPLATE_ID = "template_tvjm9j1";
+  const AUTO_REPLY_TEMPLATE_ID = "template_130da3f";
+  const PUBLIC_KEY = "ghKmcJ06QiJB5NRox";
 
   const handleChange = (e) =>
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
@@ -158,7 +157,10 @@ const Contact = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#FCFCFD] flex items-center justify-center pt-8 sm:pt-24 pb-20 px-4 sm:px-6 overflow-hidden">
+    <main
+      onLoad={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      className="min-h-screen bg-[#FCFCFD] flex items-center justify-center pt-8 sm:pt-24 pb-20 px-4 sm:px-6 mb-24 overflow-hidden"
+    >
       <motion.div
         className="w-full max-w-[560px] flex flex-col gap-10"
         initial="hidden"

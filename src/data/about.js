@@ -214,7 +214,7 @@ const about = {
     title: "About This Website",
     version: "v1.0.0",
     designPhilosophy:
-      "Clean, minimal design with focus on user experience and performance. Built with React, Tailwind CSS, and modern web technologies.",
+      "Clean, minimal, and performance focused interface designed with a strong emphasis on user experience. Built using React, Tailwind CSS, Framer Motion, React Icons, and Lenis for smooth scrolling, with typography powered by Inter and Roboto Flex. The design is first crafted in Figma and refined using modern web development practices.",
     technologies: [
       { name: "React", role: "Frontend Framework" },
       { name: "Tailwind CSS", role: "Styling" },
@@ -223,11 +223,11 @@ const about = {
     ],
     built: {
       date: "2026",
-      secondsInMaking: function (months = 13) {
-        const seconds = Math.floor(months * 30.44 * 24 * 60 * 60);
+      secondsInMaking: function (months = 2) {
+        const seconds = Math.floor(months * 30 * 24 * 60 * 60);
         return `${seconds.toLocaleString()} seconds in making.`;
       },
-      readableTime: "~13 months",
+      readableTime: null,
     },
     nextVersion:
       "Version 2.0 coming soon with enhanced animations and Dark mode",

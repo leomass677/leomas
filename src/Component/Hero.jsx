@@ -34,7 +34,7 @@ const Hero = () => {
       <div className="flex flex-col-reverse gap-1 sm:gap-5 md:flex-row md:items-end md:justify-between md:gap-10 lg:gap-14 xl:gap-20">
         {/* Left — headline + description */}
         <motion.div
-          className="flex flex-col gap-3 sm:gap-4 flex-1"
+          className="flex flex-col flex-1 gap-3 sm:gap-4"
           variants={reduce ? undefined : fadeInLeft}
         >
           <motion.h1
@@ -84,7 +84,7 @@ const Hero = () => {
         >
           {/* "Hi, I'm Muktar" with curve decoration */}
           <motion.span
-            className="relative inline-block self-start"
+            className="relative self-start inline-block"
             variants={reduce ? undefined : scaleIn}
           >
             {images?.vector_curve && (
@@ -120,7 +120,7 @@ const Hero = () => {
 
           {/* Role + underline */}
           <motion.div
-            className="relative mt-1 self-start"
+            className="relative self-start mt-1"
             variants={reduce ? undefined : item}
           >
             <motion.p
@@ -200,7 +200,10 @@ const Hero = () => {
             window.scrollTo({ top, behavior: "smooth" });
           }}
         >
-          Selected Projects <motion.div></motion.div>
+          Selected Projects{" "}
+          <motion.div>
+            <LuChevronRight size={20} />
+          </motion.div>
         </motion.p>
         <motion.p
           className="flex items-center gap-0.5"
